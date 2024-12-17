@@ -1,22 +1,23 @@
 var __path = process.cwd(),
-      monk = require('monk'),
-     { color } = require(__path + '/lib/color.js')
+    monk = require('monk'),
+    { color } = require(__path + '/lib/color.js')
 
-// Connection URL
-var url = 'https://fxc7-api.herokuapp.com';
+// Replace the URL with your database connection string
+var url = 'mongodb+srv://mohsin:mohsin@cluster0.iauaztt.mongodb.net/?retryWrites=true&w=majority';
+
 try {
-if(url == 'https://fxc7-api.herokuapp.com') throw console.log(color('Cek konfigurasi database, var url belum diisi','red'));
+  if (!url) throw console.log(color('Check database configuration, var url has not been set', 'red'));
 } catch (e) {
-	return;
-	}
+  return;
+}
+
 var db = monk(url);
 
 db.then(() => {
-  console.log(color('Connected correctly to server, ZhirrrGanss','green'))
+  console.log(color('Connected correctly to the database server', 'green'))
 })
-.catch ((e) => {
-	console.log(color('Error : '+ e +'\n\nGagal connect ke database, \ncek configurasi database apakah Connection URL sudah benar','red'))
-	})
+.catch((e) => {
+  console.log(color('Error: ' + e + '\n\nFailed to connect to database. \nCheck if the database connection URL is correct', 'red'))
+})
 
-
-module.exports = db
+module.exports = db;
