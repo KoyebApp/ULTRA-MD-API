@@ -11,11 +11,8 @@ const { color } = require(path.join(__path, 'lib/color.js'));
 // Load environment variables from .env file
 dotenv.config();
 
-// Default hardcoded URL (fallback if .env does not contain DATABASE_URL)
-const defaultDatabaseUrl = 'postgresql://globaltechinfo:vWNdmGJGfztlkw0d1wvnrw@dissed-buck-5725.7s5.aws-ap-south-1.cockroachlabs.cloud:26257/defaultdb?sslmode=verify-full'; // Change this to your hardcoded URL
-
 // Get the database URL from .env, or fallback to the hardcoded URL
-const databaseUrl = process.env.DATABASE_URL || defaultDatabaseUrl;
+const databaseUrl = process.env.DATABASE_URL || 'postgresql://globaltechinfo:vWNdmGJGfztlkw0d1wvnrw@dissed-buck-5725.7s5.aws-ap-south-1.cockroachlabs.cloud:26257/defaultdb?sslmode=verify-full';
 
 // Log if we are using the fallback URL
 if (!process.env.DATABASE_URL) {
@@ -27,6 +24,12 @@ const db = new Sequelize(databaseUrl, {
   dialect: 'postgres',  // Specify PostgreSQL
   protocol: 'postgres', // Define protocol as PostgreSQL
   logging: false,       // Disable logging of SQL queries
+  dialectOptions: {
+    ssl: {
+      require: true,            // Ensure SSL connection
+      rejectUnauthorized: false,  // Depending on the database, might need this
+    },
+  },
 });
 
 // Log connection attempt with color
