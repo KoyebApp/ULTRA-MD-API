@@ -40,7 +40,7 @@
     "form-data": "^4.0.1",
     "fs-extra": "latest",
     "genius-lyrics": "^4.2.7",
-    "instatouch": "^2.3.3",
+    "instatouch": "^2.3.22",
     "lodash": "^4.17.20",
     "moment": "^2.29.1",
     "mongodb": "^6.12.0",
