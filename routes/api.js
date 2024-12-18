@@ -43,6 +43,7 @@ var cookie = process.env.COOCKIE;
 if (!cookie) {
   console.error('COOKIE environment variable not found.');
 }
+const creator = 'Qasim Ali';
 
 const createErrorMessage = (message) => ({
     status: false,
