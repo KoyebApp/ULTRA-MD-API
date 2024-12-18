@@ -133,6 +133,97 @@ router.delete("/apikey", async (req, res, next) => {
   });
 });
 
+// Import the functions you exported earlier
+const { pinterest, wallpaper, wikimedia, quotesAnime, happymod, umma, ringtone, styletext } = require('./path_to_your_functions_file');
+
+// Pinterest route
+router.get('/pinterest/:query', async (req, res) => {
+  try {
+    const query = req.params.query;
+    const images = await pinterest(query);
+    res.json(images);
+  } catch (error) {
+    res.status(500).json({ message: 'Error fetching Pinterest images', error: error.message });
+  }
+});
+
+// Wallpaper route
+router.get('/wallpaper/:title', async (req, res) => {
+  try {
+    const title = req.params.title;
+    const wallpapers = await wallpaper(title);
+    res.json(wallpapers);
+  } catch (error) {
+    res.status(500).json({ message: 'Error fetching wallpapers', error: error.message });
+  }
+});
+
+// Wikimedia route
+router.get('/wikimedia/:title', async (req, res) => {
+  try {
+    const title = req.params.title;
+    const images = await wikimedia(title);
+    res.json(images);
+  } catch (error) {
+    res.status(500).json({ message: 'Error fetching Wikimedia images', error: error.message });
+  }
+});
+
+// Anime quotes route
+router.get('/quotesAnime', async (req, res) => {
+  try {
+    const quotes = await quotesAnime();
+    res.json(quotes);
+  } catch (error) {
+    res.status(500).json({ message: 'Error fetching anime quotes', error: error.message });
+  }
+});
+
+// HappyMod route
+router.get('/happymod/:query', async (req, res) => {
+  try {
+    const query = req.params.query;
+    const mods = await happymod(query);
+    res.json(mods);
+  } catch (error) {
+    res.status(500).json({ message: 'Error fetching HappyMod APKs', error: error.message });
+  }
+});
+
+// Umma route
+router.get('/umma/:url', async (req, res) => {
+  try {
+    const url = req.params.url;
+    const media = await umma(url);
+    res.json(media);
+  } catch (error) {
+    res.status(500).json({ message: 'Error fetching media from Umma', error: error.message });
+  }
+});
+
+// Ringtone route
+router.get('/ringtone/:title', async (req, res) => {
+  try {
+    const title = req.params.title;
+    const ringtones = await ringtone(title);
+    res.json(ringtones);
+  } catch (error) {
+    res.status(500).json({ message: 'Error fetching ringtones', error: error.message });
+  }
+});
+
+// Styletext route
+router.get('/styletext/:teks', async (req, res) => {
+  try {
+    const teks = req.params.teks;
+    const styledText = await styletext(teks);
+    res.json(styledText);
+  } catch (error) {
+    res.status(500).json({ message: 'Error styling text', error: error.message });
+  }
+});
+
+
 router.get('/music/joox', async (req, res, next) => {
   const query = req.query.query;
   const apikey = req.query.apikey;
