@@ -90,7 +90,7 @@ Akhir Pesan Error
 */
 router.use(favicon(__path + "/views/favicon.ico"));
 
-const listkey = ["Fxc7", "manogay"];
+const listkey = ["qa", "manogay"];
 
 router.post("/apikey", async (req, res, next) => {
   const key = req.query.key;
@@ -162,7 +162,7 @@ router.get('/music/spotify', async (req, res, next) => {
   
   if (listkey.includes(apikey)) {
     try {
-      const response = await fetch(encodeURI(`https://alpin-api-2021.herokuapp.com/api/spotify?apikey=alpin1&q=${query}`));
+      const response = await fetch(encodeURI(`https://global-tech-api.vercel.app/spotifysearch?query=${query}`));
       const hasil = await response.json();
       res.json({
         status: true,
@@ -754,7 +754,7 @@ router.get('/muslim/tahlil', async (req, res, next) => {
   if (!Apikey) return res.json(loghandler.notparam);
   if (listkey.includes(Apikey)) {
     try {
-      const response = await fetch(encodeURI('https://raw.githubusercontent.com/Zhirrr/My-SQL-Results/main/data/dataTahlil.json'));
+      const response = await fetch(encodeURI('https://raw.githubusercontent.com/KoyebApp/ULTRA-MD-API/main/data/dataTahlil.json'));
       const data = await response.json();
       res.json({ result: data });
     } catch (e) {
