@@ -31,6 +31,8 @@ const {
   pButterfly
 } = require("./../lib/utils/photooxy");
 
+var router  = express.Router();
+
 var { igStalk, igDownload } = require("./../lib/utils/ig");
 var { ytDonlodMp3, ytDonlodMp4, ytPlayMp3, ytPlayMp4, ytSearch } = require("./../lib/utils/yt");
 var { Joox, FB, Tiktok } = require("./../lib/utils/downloader");
