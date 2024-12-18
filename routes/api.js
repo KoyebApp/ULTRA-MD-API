@@ -363,7 +363,7 @@ router.get('/yt/search', async(req, res, next) => {
      }
 });
 
-router.get('/download/tiktok', async (req, res, next) => {
+router.get('/download/tikdown', async (req, res, next) => {
     var Apikey = req.query.apikey,
         url = req.query.url
 
