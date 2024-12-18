@@ -11,14 +11,19 @@ const { color } = require(path.join(__path, 'lib/color.js'));
 // Load environment variables from .env file
 dotenv.config();
 
-// Connection URL from environment variable (you can also use a direct URL here if needed)
+// Default hardcoded URL (fallback if .env does not contain DATABASE_URL)
+const defaultDatabaseUrl = 'postgres://user:password@host:5432/mydatabase'; // Change this to your hardcoded URL
+
+// Get the database URL from .env, or fallback to the hardcoded URL
+const databaseUrl = process.env.DATABASE_URL || defaultDatabaseUrl;
+
+// Log if we are using the fallback URL
 if (!process.env.DATABASE_URL) {
-  console.log(color('DATABASE_URL variable is not set', 'red'));
-  throw new Error('DATABASE_URL variable is not set');
+  console.log(color('Using hardcoded DATABASE_URL because .env does not have it', 'yellow'));
 }
 
-// Create Sequelize instance using DATABASE_URL from environment variable
-const db = new Sequelize(process.env.DATABASE_URL, {
+// Create Sequelize instance using DATABASE_URL (either from .env or hardcoded)
+const db = new Sequelize(databaseUrl, {
   dialect: 'postgres',  // Specify PostgreSQL
   protocol: 'postgres', // Define protocol as PostgreSQL
   logging: false,       // Disable logging of SQL queries
