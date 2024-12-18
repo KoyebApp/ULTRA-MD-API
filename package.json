@@ -37,7 +37,6 @@
     "fluent-ffmpeg": "^2.1.2",
     "ffmpeg": "^0.0.4",
     "@ffmpeg-installer/linux-x64": "latest",
-    "@ffmpeg-installer/linux-arm64": "latest",
     "form-data": "^4.0.1",
     "fs-extra": "latest",
     "genius-lyrics": "^4.2.7",
