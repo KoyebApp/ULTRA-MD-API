@@ -17,7 +17,7 @@ var request = require('request');
 var zrapi = require("zrapi");
 var dotenv = require("dotenv").config()
 var fs = require('fs-extra');
-var TikTokScraper = require('tiktok-scraper');
+var fg = require('api-dylux');
 var { EmojiAPI } = require("emoji-api");
 var emoji = new EmojiAPI();
 var router  = express.Router();
@@ -434,33 +434,48 @@ res.json(loghandler.invalidKey)
 });
 
 router.get('/stalk/tiktok', async (req, res, next) => {
-    var Apikey = req.query.apikey,
-        username = req.query.username
+    const Apikey = req.query.apikey;
+    const username = req.query.username;
 
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
-    if (!username) return res.json(loghandler.notusername)
+    // Check if the API key is provided
+    if (!Apikey) return res.json(loghandler.notparam);
 
+    // Validate the API key
+    if (listkey.includes(Apikey)) {
+        // Check if the username is provided
+        if (!username) return res.json(loghandler.notusername);
 
-    TikTokScraper.getUserProfileInfo(username)
-        .then(user => {
+        try {
+            // Fetch the TikTok user data using api-dylux's ttStalk method
+            let user = await fg.ttStalk(username);
+
+            // Return the user data
             res.json({
-                status : true,
-                creator : `${creator}`,
-                result : user
-            })
-        })
-        .catch(e => {
-             res.json({
-                 status : false,
-                 creator : `${creator}`,
-                 message : "error, mungkin username anda tidak valid"
-             })
-         })
-   } else {
-res.json(loghandler.invalidKey)
-}
-})
+                status: true,
+                creator: creator,  // Assuming 'creator' is defined elsewhere in your code
+                result: {
+                    name: user.name,
+                    username: user.username,
+                    followers: user.followers,
+                    following: user.following,
+                    desc: user.desc,
+                    link: `https://tiktok.com/@${user.username}`,
+                }
+            });
+        } catch (e) {
+            // Handle errors (e.g., invalid username)
+            res.json({
+                status: false,
+                creator: creator,
+                message: "Error, username might be invalid"
+            });
+        }
+    } else {
+        // If API key is invalid, return an error
+        res.json(loghandler.invalidKey);
+    }
+});
+
 
 router.get('/stalk/ig', async(req, res, next) => {
   const username = req.query.username;
