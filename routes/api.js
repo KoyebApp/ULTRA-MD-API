@@ -8,7 +8,7 @@ var zahirr = db.get("zahirr");
 	console.log('')  
 }
  
-var creator = "@only_fxc7"
+var creator = "Qasim"
 var secure = require('ssl-express-www');
 var cors = require('cors');
 var fetch = require('node-fetch');
@@ -363,7 +363,7 @@ router.get('/yt/search', async(req, res, next) => {
      }
 });
 
-router.get('/download/tikdown', async (req, res, next) => {
+router.get('/download/tiktok', async (req, res, next) => {
     var Apikey = req.query.apikey,
         url = req.query.url
 
