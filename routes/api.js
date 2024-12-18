@@ -137,92 +137,170 @@ router.delete("/apikey", async (req, res, next) => {
 const { pinterest, wallpaper, wikimedia, quotesAnime, happymod, umma, ringtone, styletext } = require('./../lib/utils/moretools');
 
 // Pinterest route
-router.get('/pinterest/:query', async (req, res) => {
-  try {
-    const query = req.params.query;
-    const images = await pinterest(query);
-    res.json(images);
-  } catch (error) {
-    res.status(500).json({ message: 'Error fetching Pinterest images', error: error.message });
+router.get('/image/pinterest', async (req, res) => {
+  const query = req.query.query;
+  const apikey = req.query.apikey;
+
+  if (!query) return res.json(loghandler.notquery);
+  if (!apikey) return res.json(loghandler.notparam);
+
+  if (listkey.includes(apikey)) {
+    try {
+      const images = await pinterest(query);
+      res.json({ status: true, result: images });
+    } catch (error) {
+      console.error('Error fetching Pinterest images:', error);
+      res.json(loghandler.error);
+    }
+  } else {
+    res.json(loghandler.invalidKey);
   }
 });
 
 // Wallpaper route
-router.get('/wallpaper/:title', async (req, res) => {
-  try {
-    const title = req.params.title;
-    const wallpapers = await wallpaper(title);
-    res.json(wallpapers);
-  } catch (error) {
-    res.status(500).json({ message: 'Error fetching wallpapers', error: error.message });
+router.get('/download/wallpaper', async (req, res) => {
+  const title = req.query.title;
+  const apikey = req.query.apikey;
+
+  if (!title) return res.json(loghandler.notquery);
+  if (!apikey) return res.json(loghandler.notparam);
+
+  if (listkey.includes(apikey)) {
+    try {
+      const wallpapers = await wallpaper(title);
+      res.json({ status: true, result: wallpapers });
+    } catch (error) {
+      console.error('Error fetching wallpapers:', error);
+      res.json(loghandler.error);
+    }
+  } else {
+    res.json(loghandler.invalidKey);
   }
 });
 
 // Wikimedia route
-router.get('/wikimedia/:title', async (req, res) => {
-  try {
-    const title = req.params.title;
-    const images = await wikimedia(title);
-    res.json(images);
-  } catch (error) {
-    res.status(500).json({ message: 'Error fetching Wikimedia images', error: error.message });
+router.get('/image/wikimedia', async (req, res) => {
+  const title = req.query.title;
+  const apikey = req.query.apikey;
+
+  if (!title) return res.json(loghandler.notquery);
+  if (!apikey) return res.json(loghandler.notparam);
+
+  if (listkey.includes(apikey)) {
+    try {
+      const images = await wikimedia(title);
+      res.json({ status: true, result: images });
+    } catch (error) {
+      console.error('Error fetching Wikimedia images:', error);
+      res.json(loghandler.error);
+    }
+  } else {
+    res.json(loghandler.invalidKey);
   }
 });
 
 // Anime quotes route
-router.get('/quotesAnime', async (req, res) => {
-  try {
-    const quotes = await quotesAnime();
-    res.json(quotes);
-  } catch (error) {
-    res.status(500).json({ message: 'Error fetching anime quotes', error: error.message });
+router.get('/quotes/anime', async (req, res) => {
+  const apikey = req.query.apikey;
+
+  if (!apikey) return res.json(loghandler.notparam);
+
+  if (listkey.includes(apikey)) {
+    try {
+      const quotes = await quotesAnime();
+      res.json({ status: true, result: quotes });
+    } catch (error) {
+      console.error('Error fetching anime quotes:', error);
+      res.json(loghandler.error);
+    }
+  } else {
+    res.json(loghandler.invalidKey);
   }
 });
 
 // HappyMod route
-router.get('/happymod/:query', async (req, res) => {
-  try {
-    const query = req.params.query;
-    const mods = await happymod(query);
-    res.json(mods);
-  } catch (error) {
-    res.status(500).json({ message: 'Error fetching HappyMod APKs', error: error.message });
+router.get('/happymod', async (req, res) => {
+  const query = req.query.query;
+  const apikey = req.query.apikey;
+
+  if (!query) return res.json(loghandler.notquery);
+  if (!apikey) return res.json(loghandler.notparam);
+
+  if (listkey.includes(apikey)) {
+    try {
+      const mods = await happymod(query);
+      res.json({ status: true, result: mods });
+    } catch (error) {
+      console.error('Error fetching HappyMod APKs:', error);
+      res.json(loghandler.error);
+    }
+  } else {
+    res.json(loghandler.invalidKey);
   }
 });
 
 // Umma route
-router.get('/umma/:url', async (req, res) => {
-  try {
-    const url = req.params.url;
-    const media = await umma(url);
-    res.json(media);
-  } catch (error) {
-    res.status(500).json({ message: 'Error fetching media from Umma', error: error.message });
+router.get('/media/umma', async (req, res) => {
+  const url = req.query.url;
+  const apikey = req.query.apikey;
+
+  if (!url) return res.json(loghandler.noturl);
+  if (!apikey) return res.json(loghandler.notparam);
+
+  if (listkey.includes(apikey)) {
+    try {
+      const media = await umma(url);
+      res.json({ status: true, result: media });
+    } catch (error) {
+      console.error('Error fetching media from Umma:', error);
+      res.json(loghandler.error);
+    }
+  } else {
+    res.json(loghandler.invalidKey);
   }
 });
 
 // Ringtone route
-router.get('/ringtone/:title', async (req, res) => {
-  try {
-    const title = req.params.title;
-    const ringtones = await ringtone(title);
-    res.json(ringtones);
-  } catch (error) {
-    res.status(500).json({ message: 'Error fetching ringtones', error: error.message });
+router.get('/audio/ringtone', async (req, res) => {
+  const title = req.query.title;
+  const apikey = req.query.apikey;
+
+  if (!title) return res.json(loghandler.notquery);
+  if (!apikey) return res.json(loghandler.notparam);
+
+  if (listkey.includes(apikey)) {
+    try {
+      const ringtones = await ringtone(title);
+      res.json({ status: true, result: ringtones });
+    } catch (error) {
+      console.error('Error fetching ringtones:', error);
+      res.json(loghandler.error);
+    }
+  } else {
+    res.json(loghandler.invalidKey);
   }
 });
 
 // Styletext route
-router.get('/styletext/:teks', async (req, res) => {
-  try {
-    const teks = req.params.teks;
-    const styledText = await styletext(teks);
-    res.json(styledText);
-  } catch (error) {
-    res.status(500).json({ message: 'Error styling text', error: error.message });
+router.get('/text/style', async (req, res) => {
+  const teks = req.query.teks;
+  const apikey = req.query.apikey;
+
+  if (!teks) return res.json(loghandler.notquery);
+  if (!apikey) return res.json(loghandler.notparam);
+
+  if (listkey.includes(apikey)) {
+    try {
+      const styledText = await styletext(teks);
+      res.json({ status: true, result: styledText });
+    } catch (error) {
+      console.error('Error styling text:', error);
+      res.json(loghandler.error);
+    }
+  } else {
+    res.json(loghandler.invalidKey);
   }
 });
-
 
 router.get('/music/joox', async (req, res, next) => {
   const query = req.query.query;
