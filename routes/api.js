@@ -134,7 +134,7 @@ router.delete("/apikey", async (req, res, next) => {
 });
 
 // Import the functions you exported earlier
-const { pinterest, wallpaper, wikimedia, quotesAnime, happymod, umma, ringtone, styletext } = require('./path_to_your_functions_file');
+const { pinterest, wallpaper, wikimedia, quotesAnime, happymod, umma, ringtone, styletext } = require('./../lib/utils/moretools');
 
 // Pinterest route
 router.get('/pinterest/:query', async (req, res) => {
