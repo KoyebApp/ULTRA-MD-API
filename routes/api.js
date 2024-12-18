@@ -1717,14 +1717,14 @@ router.get('/anime/loli', async (req, res) => {
 // Route to search Manga
 router.get('/anime/manga', async (req, res) => {
     const Apikey = req.query.apikey;
-    const search = req.query.search;
+    const search = req.query.name;
 
     if (!Apikey) return res.json(loghandler.notparam);
     if (!listkey.includes(Apikey)) return res.json(loghandler.invalidKey);
     if (!search) return res.json({ status: false, creator: `${creator}`, message: "Masukkan parameter search" });
 
     try {
-        const response = await fetch(encodeURI(`https://docs-api-zahirrr.herokuapp.com/api/manga?keyword=${search}`));
+        const response = await fetch(encodeURI(`https://www.anime-planet.com/manga/all`));
         const data = await response.json();
         res.json({
             result: data
