@@ -12,7 +12,7 @@ const { color } = require(path.join(__path, 'lib/color.js'));
 dotenv.config();
 
 // Default hardcoded URL (fallback if .env does not contain DATABASE_URL)
-const defaultDatabaseUrl = 'postgres://user:password@host:5432/mydatabase'; // Change this to your hardcoded URL
+const defaultDatabaseUrl = 'postgresql://globaltechinfo:vWNdmGJGfztlkw0d1wvnrw@dissed-buck-5725.7s5.aws-ap-south-1.cockroachlabs.cloud:26257/defaultdb?sslmode=verify-full'; // Change this to your hardcoded URL
 
 // Get the database URL from .env, or fallback to the hardcoded URL
 const databaseUrl = process.env.DATABASE_URL || defaultDatabaseUrl;
