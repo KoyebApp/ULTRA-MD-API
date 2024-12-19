@@ -1767,28 +1767,25 @@ router.get('/translate', async (req, res) => {
 });
 
 // Route to search Kusonime anime
-router.get('/anime/akira', async (req, res) => {
+router.get('/anime/random-image', async (req, res) => {
     const Apikey = req.query.apikey;
-    const search = req.query.search;
 
+    // Check if API key is provided
     if (!Apikey) return res.json(loghandler.notparam);
     if (!listkey.includes(Apikey)) return res.json(loghandler.invalidKey);
-    if (!search) return res.json({ status: false, creator: `${creator}`, message: "Masukkan parameter search" });
 
     try {
         // Fetch the raw JSON data from GitHub
         const response = await fetch('https://raw.githubusercontent.com/GlobalTechInfo/api/Guru/BOT-JSON/anime-akira.json');
         const data = await response.json();
 
-        // Filter data based on the search query (if necessary)
-        const filteredData = data.filter(url => url.toLowerCase().includes(search.toLowerCase()));
-
-        if (filteredData.length === 0) {
+        // If no images are found, return an error
+        if (data.length === 0) {
             return res.json({ status: false, message: "No images found." });
         }
 
-        // Select a random image URL
-        const randomImage = filteredData[Math.floor(Math.random() * filteredData.length)];
+        // Select a random image URL from the array
+        const randomImage = data[Math.floor(Math.random() * data.length)];
 
         // Return the result with the random image URL
         res.json({ result: randomImage });
@@ -1798,6 +1795,7 @@ router.get('/anime/akira', async (req, res) => {
         res.json(loghandler.error);
     }
 });
+
 
 // Route to get random Loli image
 router.get('/anime/loli', async (req, res) => {
