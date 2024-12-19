@@ -504,23 +504,41 @@ router.get('/download/fb', async (req, res, next) => {
   const Apikey = req.query.apikey;
   const url = req.query.url;
 
+  // Check if the API key is valid
   if (!Apikey) return res.json(loghandler.notparam);
   if (!listkey.includes(Apikey)) return res.json(loghandler.invalidKey);
+
+  // Check if the URL is provided
   if (!url) return res.json({ status: false, creator: `${creator}`, message: "Please provide the URL" });
 
   try {
+    console.log('URL received:', url); // Log the URL
+
+    // Call the FB function and fetch data
     const data = await FB(url);
+    // Check if the necessary data exists
+    if (!data || !data.result || !data.result.title || !data.result.hd) {
+      return res.json({
+        status: false,
+        creator: `${creator}`,
+        message: "Some fields are missing or not found!"
+      });
+    }
+
+    // Map the data to match the route response structure
     res.json({
       status: true,
       code: 200,
       creator: `${creator}`,
-      title: data.title,
-      desc: data.deskripsi,
-      durasi: data.durasi,
-      thumb: data.thumbnail,
-      result: data.hd
+      title: data.result.title,
+      desc: data.result.time,  // Assuming 'time' corresponds to 'desc'
+      durasi: data.result.time, // Assuming 'time' corresponds to 'durasi'
+      thumb: data.result.url,  // Assuming 'url' corresponds to 'thumb'
+      result: data.result.hd   // The 'hd' link for download
     });
+
   } catch (err) {
+    console.error('Error during FB download:', err); // Log any errors
     res.json(loghandler.error);
   }
 });
