@@ -20,11 +20,11 @@ app.use(express.static("public"))
 
 app.use('/', mainrouter);
 app.use('/api', apirouter);
-app.get('/index', (req, res) => {
+app.get('/views/index', (req, res) => {
   res.sendFile(path.join(__dirname, 'views', 'index.html'));
 });
 
-app.get('/docs', (req, res) => {
+app.get('/views/docs', (req, res) => {
   res.sendFile(path.join(__dirname, 'views', 'docs.html'));
 });
 
