@@ -22,7 +22,7 @@ app.use(secure);
 app.use(favicon(path.join(__dirname, 'views', 'favicon.ico')));
 
 // Static files from the "public" directory
-app.use(express.static("public"));
+app.use(express.static(path.join(__dirname, 'public')));
 
 // Route setup
 app.use('/', mainrouter);
@@ -31,11 +31,15 @@ app.use('/api', apirouter);
 // Serve the index.html page when the root route is accessed
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'views', 'index.html'));
+  console.log(path.join(__dirname, 'views', 'index.html'));
+
+  
 });
 
 // Serve the docs.html page when "/docs" route is accessed
 app.get('/docs', (req, res) => {
   res.sendFile(path.join(__dirname, 'views', 'docs.html'));
+  console.log(path.join(__dirname, 'views', 'docs.html'));
 });
 
 // Custom 404 Error Handler
@@ -43,6 +47,7 @@ app.use((req, res) => {
   res.status(404)
      .set("Content-Type", "text/html")
      .sendFile(path.join(__dirname, 'views', '404.html')); // Ensure correct path to 404.html
+console.log(path.join(__dirname, 'views', '404.html'));
 });
 
 // Start the server
