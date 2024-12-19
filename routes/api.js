@@ -133,6 +133,44 @@ router.delete("/apikey", async (req, res, next) => {
   });
 });
 
+// Import the xdown function from ./../lib/utils/xdown
+const xdown = require('./../lib/utils/xdown');
+
+// Route that handles the download functionality
+router.get('/download/twitter', async (req, res, next) => {
+  const Apikey = req.query.apikey;
+  const url = req.query.url;
+
+  // Check if API key and URL are provided
+  if (!Apikey) return res.json({ status: false, message: "No API key provided" });
+  if (!url) return res.json({ status: false, message: "Please provide the URL" });
+
+  try {
+    // Use xdown to fetch media data
+    const data = await xdown(url);
+
+    // Send the result in the response
+    res.json({
+      status: true,
+      code: 200,
+      creator: 'Qasim Ali',
+      media: data.media,
+      date: data.date,
+      likes: data.likes,
+      replies: data.replies,
+      retweets: data.retweets,
+      authorName: data.authorName,
+      authorUsername: data.authorUsername,
+      text: data.text || 'No text available',
+    });
+  } catch (err) {
+    // Handle errors and send response
+    console.error(err);
+    res.json({ status: false, message: "An error occurred while fetching data" });
+  }
+});
+
+
 // Import the functions you exported earlier
 const { pinterest, wallpaper, wikimedia, quotesAnime, happymod, umma, ringtone, styletext } = require('./../lib/utils/moretools');
 
