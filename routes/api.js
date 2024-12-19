@@ -500,24 +500,24 @@ router.get('/download/ig', async (req, res, next) => {
 });
 
 // Facebook download route
+
 router.get('/download/fb', async (req, res, next) => {
   const Apikey = req.query.apikey;
   const url = req.query.url;
 
-  // Check if the API key is valid
+  // Validate API key
   if (!Apikey) return res.json(loghandler.notparam);
   if (!listkey.includes(Apikey)) return res.json(loghandler.invalidKey);
 
-  // Check if the URL is provided
+  // Check if URL is provided
   if (!url) return res.json({ status: false, creator: `${creator}`, message: "Please provide the URL" });
 
   try {
-    console.log('URL received:', url); // Log the URL
-
-    // Call the FB function and fetch data
+    // Fetch data from FB function
     const data = await FB(url);
-    // Check if the necessary data exists
-    if (!data || !data.result || !data.result.title || !data.result.hd) {
+
+    // Ensure that the necessary fields are present
+    if (!data || !data.result || !data.result.title || !data.result.hd || !data.result.sd || !data.result.audio) {
       return res.json({
         status: false,
         creator: `${creator}`,
@@ -525,20 +525,24 @@ router.get('/download/fb', async (req, res, next) => {
       });
     }
 
-    // Map the data to match the route response structure
+    // Return data in the expected format
     res.json({
       status: true,
       code: 200,
       creator: `${creator}`,
-      title: data.result.title,
-      desc: data.result.time,  // Assuming 'time' corresponds to 'desc'
-      durasi: data.result.time, // Assuming 'time' corresponds to 'durasi'
-      thumb: data.result.url,  // Assuming 'url' corresponds to 'thumb'
-      result: data.result.hd   // The 'hd' link for download
+      title: data.result.title || 'Title not found',
+      desc: data.result.time || 'Description not available', // Assuming `time` maps to `desc`
+      durasi: data.result.time || 'Duration not available', // Assuming `time` maps to `durasi`
+      thumb: data.result.url || 'Thumbnail not available', // Assuming `url` maps to `thumb`
+      result: {
+        hd: data.result.hd || 'HD link not found',
+        sd: data.result.sd || 'SD link not found',
+        audio: data.result.audio || 'Audio link not found'
+      }
     });
 
   } catch (err) {
-    console.error('Error during FB download:', err); // Log any errors
+    // Handle errors
     res.json(loghandler.error);
   }
 });
