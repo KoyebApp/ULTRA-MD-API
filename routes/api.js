@@ -1767,7 +1767,7 @@ router.get('/translate', async (req, res) => {
 });
 
 // Route to search Kusonime anime
-router.get('/anime/kusonime', async (req, res) => {
+router.get('/anime/akira', async (req, res) => {
     const Apikey = req.query.apikey;
     const search = req.query.search;
 
@@ -1776,13 +1776,25 @@ router.get('/anime/kusonime', async (req, res) => {
     if (!search) return res.json({ status: false, creator: `${creator}`, message: "Masukkan parameter search" });
 
     try {
-        const response = await fetch(encodeURI(`https://docs-api-zahirrr.herokuapp.com/api/kusonime?search=${search}`));
+        // Fetch the raw JSON data from GitHub
+        const response = await fetch('https://raw.githubusercontent.com/GlobalTechInfo/api/Guru/BOT-JSON/anime-akira.json');
         const data = await response.json();
-        res.json({
-            result: data
-        });
+
+        // Filter data based on the search query (if necessary)
+        const filteredData = data.filter(url => url.toLowerCase().includes(search.toLowerCase()));
+
+        if (filteredData.length === 0) {
+            return res.json({ status: false, message: "No images found." });
+        }
+
+        // Select a random image URL
+        const randomImage = filteredData[Math.floor(Math.random() * filteredData.length)];
+
+        // Return the result with the random image URL
+        res.json({ result: randomImage });
+
     } catch (e) {
-        console.error('Error fetching Kusonime data:', e);
+        console.error('Error fetching data:', e);
         res.json(loghandler.error);
     }
 });
