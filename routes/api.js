@@ -135,6 +135,8 @@ router.delete("/apikey", async (req, res, next) => {
 
 // Import the xdown function from ./../lib/utils/xdown
 const xdown = require('./../lib/utils/xdown');
+const Spotify = require('./../lib/utils/Spotify');
+
 
 // Route that handles the download functionality
 router.get('/download/twitter', async (req, res, next) => {
@@ -175,6 +177,52 @@ router.get('/download/twitter', async (req, res, next) => {
     res.json({ status: false, message: "An error occurred while fetching data" });
   }
 });
+
+
+// Initialize Spotify class
+const spotify = new Spotify();
+
+// Define the search route
+router.get('/download/spotify', async (req, res, next) => {
+  const Apikey = req.query.apikey;
+  const query = req.query.query;  // This is the search query, e.g., a song or artist name
+  const type = req.query.type || 'track';  // Type of search, default to 'track'
+  const limit = req.query.limit || 20;  // Number of results to fetch, default to 20
+
+  // Check if the API key is valid
+  if (!Apikey) return res.json(loghandler.notparam);
+  if (!listkey.includes(Apikey)) return res.json(loghandler.invalidKey);
+
+  // Check if the query is provided
+  if (!query) return res.json({ status: false, creator: 'Qasim Ali', message: 'Please provide a search query' });
+
+  try {
+    // Perform the search via Spotify's API
+    const data = await spotify.func4(query, type, limit);
+
+    // If no data or search results are found
+    if (!data || !data.status || !data.data || data.data.length < 1) {
+      return res.json({
+        status: false,
+        creator: 'Qasim Ali',
+        message: 'No results found for the search query',
+      });
+    }
+
+    // Return the search results in JSON format
+    res.json({
+      status: true,
+      code: 200,
+      creator: 'Qasim Ali',
+      data: data.data,
+    });
+
+  } catch (err) {
+    console.error('Error during Spotify search:', err); // Log any errors
+    res.json(loghandler.error);
+  }
+});
+
 
 // Import the functions you exported earlier
 const { pinterest, wallpaper, wikimedia, quotesAnime, happymod, umma, ringtone, styletext } = require('./../lib/utils/moretools');
