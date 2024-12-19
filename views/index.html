@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -24,53 +23,76 @@
         body {
             font-family: 'Roboto', sans-serif;
             display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
+            flex-direction: column;
+            min-height: 100vh;
             background: linear-gradient(45deg, #6ab7ff, #89e0ff);
             color: #fff;
             overflow: hidden;
             transition: background-color 0.5s ease;
+            margin: 0;
+        }
+
+        /* Snow Animation */
+        @keyframes snowfall {
+            0% { top: -10%; opacity: 0.9; }
+            100% { top: 100%; opacity: 0; }
+        }
+
+        .snowflake {
+            position: absolute;
+            top: -10%;
+            left: 50%;
+            width: 10px;
+            height: 10px;
+            background-color: #fff;
+            border-radius: 50%;
+            animation: snowfall 10s linear infinite;
+        }
+
+        .snowflake:nth-child(odd) {
+            animation-duration: 12s;
+        }
+
+        .snowflake:nth-child(even) {
+            animation-duration: 8s;
         }
 
         /* Container for Content */
         .dashboard-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            flex-grow: 1;
             width: 100%;
             max-width: 1200px;
             margin: 20px;
             padding: 20px;
-            background: rgba(0, 0, 0, 0.5);
+            background: rgba(0, 0, 0, 0.7);
             border-radius: 15px;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
+            overflow: hidden;
         }
 
         /* Header Section */
         header {
             display: flex;
-            justify-content: center;
+            justify-content: space-between;
             width: 100%;
-            padding: 5px 15px;  /* Reduced padding */
+            padding: 10px 20px;
             background: #333;
             border-radius: 8px;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             color: white;
             align-items: center;
-            flex-direction: column;
         }
 
         header h1 {
-            font-size: 22px;  /* Reduced font size */
-            margin-bottom: 8px; /* Reduced margin */
+            font-size: 24px;
         }
 
         header .documentation-btn {
-            font-size: 14px;  /* Reduced font size */
-            padding: 5px 10px;  /* Reduced padding */
-            margin-top: 10px;
+            font-size: 14px;
+            padding: 8px 15px;
             cursor: pointer;
             background: #ff6600;
             color: white;
@@ -92,7 +114,7 @@
 
         .tool-card {
             background: rgba(0, 0, 0, 0.7);
-            padding: 15px;
+            padding: 20px;
             border-radius: 10px;
             text-align: center;
             color: #fff;
@@ -101,11 +123,11 @@
 
         .tool-card h3 {
             margin-bottom: 10px;
-            font-size: 18px; /* Reduced font size */
+            font-size: 18px;
         }
 
         .tool-card p {
-            font-size: 14px; /* Reduced font size */
+            font-size: 14px;
             margin-bottom: 10px;
         }
 
@@ -116,15 +138,20 @@
 
         /* Footer */
         footer {
-            margin-top: 10px;
-            color: white;
+            background-color: #333;
+            padding: 10px;
             text-align: center;
+            color: white;
+            font-size: 14px;
+            width: 100%;
+            position: relative;
+            bottom: 0;
         }
 
         /* Dark Mode Button */
         .toggle-btn {
             cursor: pointer;
-            font-size: 16px;  /* Reduced font size */
+            font-size: 16px;
             background: #ff6600;
             color: white;
             border: none;
@@ -135,49 +162,6 @@
 
         .toggle-btn:hover {
             background: #ff4500;
-        }
-
-        /* Weather Card */
-        .weather-card {
-            background: rgba(0, 0, 0, 0.7);
-            padding: 15px;
-            border-radius: 10px;
-            text-align: center;
-            color: #fff;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-        }
-
-        .weather-card h3 {
-            margin-bottom: 10px;
-            font-size: 18px; /* Reduced font size */
-        }
-
-        /* Animation for Falling Stars (for a more magical background) */
-        @keyframes fallStars {
-            from {
-                top: -50px;
-                opacity: 1;
-            }
-            to {
-                top: 100%;
-                opacity: 0;
-            }
-        }
-
-        .falling-stars {
-            position: absolute;
-            top: 0;
-            left: 50%;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            animation: fallStars 5s infinite linear;
-        }
-
-        .falling-stars img {
-            position: absolute;
-            animation: starfall 2s infinite;
-            left: 50%;
         }
 
         /* Responsive Layout */
@@ -199,6 +183,15 @@
                 flex-direction: column;
                 align-items: center;
             }
+
+            header h1 {
+                font-size: 22px;
+            }
+
+            header .documentation-btn {
+                font-size: 12px;
+                padding: 5px 10px;
+            }
         }
 
         @media (max-width: 480px) {
@@ -207,24 +200,29 @@
             }
 
             header h1 {
-                font-size: 20px; /* Smaller font size */
+                font-size: 18px;
             }
 
             header .documentation-btn {
-                font-size: 12px; /* Smaller button font size */
+                font-size: 10px;
+                padding: 5px 8px;
             }
         }
     </style>
 </head>
-
 <body>
-    <!-- Falling Stars Animation -->
-    <div class="falling-stars">
-        <img src="https://www.example.com/star1.png" alt="Star" style="animation-delay: 0.5s; left: 10%;">
-        <img src="https://www.example.com/star2.png" alt="Star" style="animation-delay: 1s; left: 20%;">
-        <img src="https://www.example.com/star3.png" alt="Star" style="animation-delay: 1.5s; left: 30%;">
-        <img src="https://www.example.com/star4.png" alt="Star" style="animation-delay: 2s; left: 40%;">
-        <img src="https://www.example.com/star5.png" alt="Star" style="animation-delay: 2.5s; left: 50%;">
+    <!-- Snow Animation -->
+    <div class="snowflakes">
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
     </div>
 
     <div class="dashboard-container">
@@ -261,20 +259,11 @@
                 <p>Time:</p>
                 <div class="data" id="current-time">12:00:00</div>
             </div>
-
-            <!-- Weather -->
-            <div class="weather-card">
-                <h3>Weather</h3>
-                <p>Current Temp:</p>
-                <div class="data" id="weather-temp">25°C</div>
-                <p id="weather-description">Clear Sky</p>
-            </div>
         </div>
-
-        <button class="toggle-btn" onclick="toggleDarkMode()">Toggle Dark Mode</button>
 
         <footer>
             <p>&copy; 2024 Qasim Ali | <a href="/docs" style="color: #ff6600;">Documentation</a></p>
+            <button class="toggle-btn" onclick="toggleDarkMode()">Toggle Dark Mode</button>
         </footer>
     </div>
 
@@ -316,22 +305,11 @@
             document.getElementById('current-time').innerText = currentTime;
         }
 
-        // Weather API mock-up
-        function updateWeather() {
-            // Mock weather data
-            document.getElementById('weather-temp').innerText = '22°C';
-            document.getElementById('weather-description').innerText = 'Clear Sky';
-        }
-
         // Set intervals to update the data
         setInterval(updateCpuUsage, 3000);
         setInterval(updateBatteryStatus, 3000);
         setInterval(updateMemoryUsage, 3000);
         setInterval(updateTime, 1000);
-
-        // Call weather update
-        updateWeather();
     </script>
 </body>
-
 </html>
