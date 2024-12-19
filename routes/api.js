@@ -1767,7 +1767,7 @@ router.get('/translate', async (req, res) => {
 });
 
 // Route to search Kusonime anime
-router.get('/anime/random-image', async (req, res) => {
+router.get('/anime/random-akira', async (req, res) => {
     const Apikey = req.query.apikey;
 
     // Check if API key is provided
@@ -1796,46 +1796,35 @@ router.get('/anime/random-image', async (req, res) => {
     }
 });
 
+router.get('/anime/random-akiyama', async (req, res) => {
+    const Apikey = req.query.apikey;
 
-// Route to get random Loli image
-router.get('/anime/loli', async (req, res) => {
-    const apikey = req.query.apikey;
-
-    if (!apikey) return res.json(loghandler.notparam);
-    if (!listkey.includes(apikey)) return res.json(loghandler.invalidKey);
+    // Check if API key is provided
+    if (!Apikey) return res.json(loghandler.notparam);
+    if (!listkey.includes(Apikey)) return res.json(loghandler.invalidKey);
 
     try {
-        const options = {
-            url: "http://results.dogpile.com/serp?qc=images&q=Loli",
-            method: "GET",
-            headers: {
-                "Accept": "text/html",
-                "User-Agent": "Chrome"
-            }
-        };
+        // Fetch the raw JSON data from GitHub
+        const response = await fetch('https://raw.githubusercontent.com/GlobalTechInfo/api/Guru/BOT-JSON/anime-akiyama.json');
+        const data = await response.json();
 
-        request(options, (error, response, responseBody) => {
-            if (error) return res.json(loghandler.error);
+        // If no data is found, return an error
+        if (data.length === 0) {
+            return res.json({ status: false, message: "No items found." });
+        }
 
-            const $ = cheerio.load(responseBody);
-            const links = $(".image a.link");
-            const results = links.map((i, el) => $(el).attr("href")).get();
+        // Select a random item from the array
+        const randomItem = data[Math.floor(Math.random() * data.length)];
 
-            if (!results.length) return res.json({ status: false, message: "No results found" });
+        // Return the result with the random item
+        res.json({ result: randomItem });
 
-            const randomResult = results[Math.floor(Math.random() * results.length)];
-            res.json({
-                status: true,
-                code: 200,
-                creator: `${creator}`,
-                result: randomResult
-            });
-        });
     } catch (e) {
-        console.error('Error fetching Loli image:', e);
+        console.error('Error fetching data:', e);
         res.json(loghandler.error);
     }
 });
+
 
 // Route to search Manga
 router.get('/anime/manga', async (req, res) => {
