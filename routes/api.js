@@ -1465,122 +1465,6 @@ router.get('/wallpaper/pegunungan', async (req, res) => {
   }
 });
 
-// Random Muslim Quote Route
-router.get('/random/quotes/muslim', async (req, res) => {
-  const Apikey = req.query.apikey;
-
-  if (!Apikey) return res.json(loghandler.notparam);
-  if (!listkey.includes(Apikey)) return res.json(loghandler.invalidKey);
-
-  try {
-    const response = await fetch(encodeURI(`https://docs-api-zahirrr.herokuapp.com/api/quote?type=agamis`));
-    const data = await response.json();
-    res.json({ result: data });
-  } catch (error) {
-    console.log('Error fetching Muslim quote:', error);
-    res.json(loghandler.error);
-  }
-});
-
-// Random Asmaul Husna Route
-router.get('/random/asmaulhusna', async (req, res) => {
-  const Apikey = req.query.apikey;
-
-  if (!Apikey) return res.json(loghandler.notparam);
-  if (!listkey.includes(Apikey)) return res.json(loghandler.invalidKey);
-
-  try {
-    const response = await fetch(encodeURI(`https://python-api-zhirrr.herokuapp.com/api/random/asmaulhusna`));
-    const data = await response.json();
-    res.json({ result: data });
-  } catch (error) {
-    console.log('Error fetching Asmaul Husna:', error);
-    res.json(loghandler.error);
-  }
-});
-
-// Wikipedia Info Route
-router.get('/info/wikipedia', async (req, res) => {
-  const Apikey = req.query.apikey;
-  const search = req.query.search;
-
-  if (!Apikey) return res.json(loghandler.notparam);
-  if (!listkey.includes(Apikey)) return res.json(loghandler.invalidKey);
-  if (!search) return res.json({ status: false, creator: `${creator}`, message: "Masukkan parameter search" });
-
-  try {
-    const response = await fetch(encodeURI(`https://docs-api-zahirrr.herokuapp.com/api/wiki?keyword=${search}`));
-    const data = await response.json();
-    res.json({ result: data });
-  } catch (error) {
-    console.log('Error fetching Wikipedia info:', error);
-    res.json(loghandler.error);
-  }
-});
-
-// Info Drakorasia Route
-router.get('/info/drakorasia', async (req, res) => {
-  const Apikey = req.query.apikey;
-  const search = req.query.search;
-
-  if (!Apikey) return res.json(loghandler.notparam);
-  if (!listkey.includes(Apikey)) return res.json(loghandler.invalidKey);
-  if (!search) return res.json({ status: false, creator: `${creator}`, message: "Masukkan parameter search" });
-
-  try {
-    const response = await fetch(encodeURI(`http://docs-api-zahirrr.herokuapp.com/api/drakorasia?search=${search}`));
-    const data = await response.json();
-    res.json({ result: data });
-  } catch (error) {
-    console.error('Error fetching Drakorasia info:', error);
-    res.json(loghandler.error);
-  }
-});
-
-// Fake Data Route
-router.get('/fakedata', async (req, res) => {
-  const Apikey = req.query.apikey;
-  const country = req.query.country;
-
-  if (!Apikey) return res.json(loghandler.notparam);
-  if (!listkey.includes(Apikey)) return res.json(loghandler.invalidKey);
-  if (!country) return res.json({ status: false, creator: `${creator}`, message: "Masukkan parameter country" });
-
-  try {
-    const response = await fetch(encodeURI(`https://fakename-api-zhirrr.vercel.app/api/fakename?country=${country}`));
-    const data = await response.json();
-    res.json({ result: data });
-  } catch (error) {
-    console.error('Error fetching fake data:', error);
-    res.json(loghandler.error);
-  }
-});
-
-
-// Route to get 'Hilih' transformation of a word
-router.get('/hilih', async (req, res) => {
-    const Apikey = req.query.apikey;
-    const kata = req.query.kata;
-
-    if (!Apikey) return res.json(loghandler.notparam);
-    if (!listkey.includes(Apikey)) return res.json(loghandler.invalidKey);
-    if (!kata) return res.json({ status: false, creator: `${creator}`, message: "Masukkan parameter kata" });
-
-    try {
-        const response = await fetch(encodeURI(`https://hilih-api-zhirrr.vercel.app/api/hilih?kata=${kata}`));
-        const data = await response.json();
-        res.json({
-            status: true,
-            code: 200,
-            creator: `${creator}`,
-            result: data
-        });
-    } catch (e) {
-        console.error('Error fetching Hilih:', e);
-        res.json(loghandler.error);
-    }
-});
-
 // Route to get lyrics of a song
 router.get('/music/liriklagu', async (req, res) => {
     const Apikey = req.query.apikey;
@@ -1600,30 +1484,6 @@ router.get('/music/liriklagu', async (req, res) => {
         });
     } catch (e) {
         console.error('Error fetching lyrics:', e);
-        res.json(loghandler.error);
-    }
-});
-
-// Route to get chords of a song
-router.get('/music/chordlagu', async (req, res) => {
-    const Apikey = req.query.apikey;
-    const lagu = req.query.lagu;
-
-    if (!Apikey) return res.json(loghandler.notparam);
-    if (!listkey.includes(Apikey)) return res.json(loghandler.invalidKey);
-    if (!lagu) return res.json({ status: false, creator: `${creator}`, message: "Masukkan parameter lagu" });
-
-    try {
-        const response = await fetch(encodeURI(`https://python-api-zhirrr.herokuapp.com/api/chord?q=${lagu}`));
-        const data = await response.json();
-        res.json({
-            status: true,
-            code: 200,
-            creator: `${creator}`,
-            result: data
-        });
-    } catch (e) {
-        console.error('Error fetching chord:', e);
         res.json(loghandler.error);
     }
 });
@@ -1652,28 +1512,6 @@ router.get('/info/kbbi', async (req, res) => {
     }
 });
 
-// Route to get COVID-19 data for Indonesia
-router.get('/info/covidindo', async (req, res) => {
-    const Apikey = req.query.apikey;
-
-    if (!Apikey) return res.json(loghandler.notparam);
-    if (!listkey.includes(Apikey)) return res.json(loghandler.invalidKey);
-
-    try {
-        const response = await fetch(encodeURI(`https://covid19-api-zhirrr.vercel.app/api/covid-indonesia`));
-        const data = await response.json();
-        res.json({
-            status: true,
-            code: 200,
-            creator: `${creator}`,
-            result: data
-        });
-    } catch (e) {
-        console.error('Error fetching COVID-19 data for Indonesia:', e);
-        res.json(loghandler.error);
-    }
-});
-
 // Route to get global COVID-19 data
 router.get('/info/covidworld', async (req, res) => {
     const Apikey = req.query.apikey;
@@ -1696,27 +1534,6 @@ router.get('/info/covidworld', async (req, res) => {
     }
 });
 
-// Route to get a random meme
-router.get('/random/meme', async (req, res) => {
-    const Apikey = req.query.apikey;
-
-    if (!Apikey) return res.json(loghandler.notparam);
-    if (!listkey.includes(Apikey)) return res.json(loghandler.invalidKey);
-
-    try {
-        const response = await fetch(encodeURI(`https://docs-api-zahirrr.herokuapp.com/api/meme`));
-        const data = await response.json();
-        res.json({
-            status: true,
-            code: 200,
-            creator: `${creator}`,
-            result: data
-        });
-    } catch (e) {
-        console.error('Error fetching meme:', e);
-        res.json(loghandler.error);
-    }
-});
 
 // Route to get postal code (kodepos) for a city
 router.get('/info/kodepos', async (req, res) => {
@@ -1738,30 +1555,6 @@ router.get('/info/kodepos', async (req, res) => {
         });
     } catch (e) {
         console.error('Error fetching postal code data:', e);
-        res.json(loghandler.error);
-    }
-});
-
-// Route to translate text
-router.get('/translate', async (req, res) => {
-    const Apikey = req.query.apikey;
-    const kata = req.query.kata;
-
-    if (!Apikey) return res.json(loghandler.notparam);
-    if (!listkey.includes(Apikey)) return res.json(loghandler.invalidKey);
-    if (!kata) return res.json({ status: false, creator: `${creator}`, message: "Masukkan parameter kata" });
-
-    try {
-        const response = await fetch(encodeURI(`https://docs-api-zahirrr.herokuapp.com/api/translate?text=${kata}`));
-        const data = await response.json();
-        res.json({
-            status: true,
-            code: 200,
-            creator: `${creator}`,
-            result: data
-        });
-    } catch (e) {
-        console.error('Error fetching translation:', e);
         res.json(loghandler.error);
     }
 });
@@ -1821,46 +1614,6 @@ router.get('/anime/random-akiyama', async (req, res) => {
 
     } catch (e) {
         console.error('Error fetching data:', e);
-        res.json(loghandler.error);
-    }
-});
-
-
-// Route to search Manga
-router.get('/anime/manga', async (req, res) => {
-    const Apikey = req.query.apikey;
-    const search = req.query.name;
-
-    if (!Apikey) return res.json(loghandler.notparam);
-    if (!listkey.includes(Apikey)) return res.json(loghandler.invalidKey);
-    if (!search) return res.json({ status: false, creator: `${creator}`, message: "Masukkan parameter search" });
-
-    try {
-        const response = await fetch(encodeURI(`https://www.anime-planet.com/manga/all`));
-        const data = await response.json();
-        res.json({
-            result: data
-        });
-    } catch (e) {
-        console.error('Error fetching Manga data:', e);
-        res.json(loghandler.error);
-    }
-});
-// Route to get Caklontong quiz questions
-router.get('/kuis/caklontong', async (req, res) => {
-    const Apikey = req.query.apikey;
-
-    if (!Apikey) return res.json(loghandler.notparam);
-    if (!listkey.includes(Apikey)) return res.json(loghandler.invalidKey);
-
-    try {
-        const response = await fetch(encodeURI('https://docs-api-zahirrr.herokuapp.com/api/quote?type=caklontong'));
-        const data = await response.json();
-        res.json({
-            result: data
-        });
-    } catch (e) {
-        console.error('Error fetching Caklontong data:', e);
         res.json(loghandler.error);
     }
 });
@@ -2562,129 +2315,6 @@ router.get("/maker/nulis", async (req, res, next) => {
   }
 });
 
-// Route to generate a text-to-image (TTP) sticker
-router.get('/maker/ttp', async (req, res, next) => {
-  const apikey = req.query.apikey;
-  const text = req.query.text;
-
-  // Validate input parameters
-  if (!text) return res.json({ status: 404, error: 'Please provide a text parameter' });
-  if (!apikey) return res.json(loghandler.notparam);
-
-  // Check if the API key is valid
-  if (listkey.includes(apikey)) {
-    try {
-      // Fetch the TTP sticker image in base64 format
-      const data = await fetch(`https://api.areltiyan.site/sticker_maker?text=${encodeURIComponent(text)}`).then(v => v.json());
-      const base64 = data.base64;
-      
-      // Convert base64 to buffer and save the image
-      const buffer = base64.slice(22); // Remove the base64 header part
-      await fs.writeFileSync(__path + `/tmp/ttp.png`, buffer, 'base64');
-      
-      // Send the generated image as a response
-      res.sendFile(__path + '/tmp/ttp.png');
-    } catch (err) {
-      console.error("Error generating TTP image:", err);
-      res.json({ status: 500, error: "Internal Server Error" });
-    }
-  } else {
-    res.json(loghandler.invalidKey);
-  }
-});
-
-// Route to generate an animated text-to-image (ATTP) GIF
-router.get('/maker/attp', async (req, res, next) => {
-  const text = req.query.text;
-  const apikey = req.query.apikey;
-
-  // Validate input parameters
-  if (!text) return res.json(loghandler.nottext);
-  if (!apikey) return res.json(loghandler.notparam);
-
-  // Check if the API key is valid
-  if (listkey.includes(apikey)) {
-    try {
-      // Construct the URL for the ATTP GIF generator
-      const url = `https://alpin-api-2021.herokuapp.com/api/attp?text=${text}&apikey=alpin1`;
-      
-      // Fetch the GIF
-      const data = await fetch(url).then(v => v.buffer());
-      
-      // Save the generated GIF to the server
-      await fs.writeFileSync(__path + '/tmp/attp.gif', data);
-      
-      // Send the generated GIF as a response
-      res.sendFile(__path + '/tmp/attp.gif');
-    } catch (err) {
-      console.error("Error generating ATTP GIF:", err);
-      res.json({ status: 500, error: "Internal Server Error" });
-    }
-  } else {
-    res.json(loghandler.invalidKey);
-  }
-});
-
-// Route to generate "Harta Tahta" themed image
-router.get('/maker/harta-tahta', async (req, res, next) => {
-  const text = req.query.text;
-  const apikey = req.query.apikey;
-
-  // Validate input parameters
-  if (!text) return res.json(loghandler.nottext);
-  if (!apikey) return res.json(loghandler.notparam);
-
-  // Check if the API key is valid
-  if (listkey.includes(apikey)) {
-    try {
-      // Construct the URL for the "Harta Tahta" image generator
-      const url = `https://api.zeks.xyz/api/hartatahta?text=${text}&apikey=apivinz`;
-      
-      // Fetch the image
-      const data = await fetch(url).then(v => v.buffer());
-      
-      // Save the generated image to the server
-      await fs.writeFileSync(__path + '/tmp/tahta.jpg', data);
-      
-      // Send the generated image as a response
-      res.sendFile(__path + '/tmp/tahta.jpg');
-    } catch (err) {
-      console.error("Error generating Harta Tahta image:", err);
-      res.json({ status: 500, error: "Internal Server Error" });
-    }
-  } else {
-    res.json(loghandler.invalidKey);
-  }
-});
-
-// Route to generate a sketch effect on an image
-router.get('/maker/skatch', async (req, res, next) => {
-  const apikey = req.query.apikey;
-  const url = req.query.url;
-
-  // Validate input parameters
-  if (!url) return res.json(loghandler.noturl);
-  if (!apikey) return res.json(loghandler.notparam);
-
-  // Check if the API key is valid
-  if (listkey.includes(apikey)) {
-    try {
-      const hasil = `https://lindow-api.herokuapp.com/api/sketcheffect?img=${url}&apikey=LindowApi`;
-      const data = await fetch(hasil).then(v => v.buffer());
-
-      // Save the image to the server
-      await fs.writeFileSync(__path + '/tmp/skatch.jpeg', data);
-      
-      // Send the generated sketch image as a response
-      res.sendFile(__path + '/tmp/skatch.jpeg');
-    } catch (err) {
-      console.error("Error generating sketch image:", err);
-      res.json({ status: 500, error: "Internal Server Error" });
-    }
-  } else {
-    res.json(loghandler.invalidKey);
-  }
-});
 
 // Route to convert emoji to PNG image
 router.get('/maker/emoji2png', async (req, res, next) => {
