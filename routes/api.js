@@ -141,35 +141,40 @@ router.get('/download/twitter', async (req, res, next) => {
   const Apikey = req.query.apikey;
   const url = req.query.url;
 
-  // Check if API key and URL are provided
+  // Validate the API key and URL
   if (!Apikey) return res.json({ status: false, message: "No API key provided" });
+  if (!listkey.includes(Apikey)) return res.json({ status: false, message: "Invalid API key" });
   if (!url) return res.json({ status: false, message: "Please provide the URL" });
 
   try {
-    // Use xdown to fetch media data
+    // Call xdown function to get media data
     const data = await xdown(url);
 
-    // Send the result in the response
-    res.json({
-      status: true,
-      code: 200,
-      creator: 'Qasim Ali',
-      media: data.media,
-      date: data.date,
-      likes: data.likes,
-      replies: data.replies,
-      retweets: data.retweets,
-      authorName: data.authorName,
-      authorUsername: data.authorUsername,
-      text: data.text || 'No text available',
-    });
+    // If media is found, return it in the response
+    if (data.found) {
+      res.json({
+        status: true,
+        code: 200,
+        creator: 'Qasim Ali',
+        media: data.media,
+        date: data.date,
+        likes: data.likes,
+        replies: data.replies,
+        retweets: data.retweets,
+        authorName: data.authorName,
+        authorUsername: data.authorUsername,
+        text: data.text || 'No text available',
+      });
+    } else {
+      // If no media found or error occurs
+      res.json({ status: false, message: data.error });
+    }
   } catch (err) {
-    // Handle errors and send response
+    // Error handling
     console.error(err);
     res.json({ status: false, message: "An error occurred while fetching data" });
   }
 });
-
 
 // Import the functions you exported earlier
 const { pinterest, wallpaper, wikimedia, quotesAnime, happymod, umma, ringtone, styletext } = require('./../lib/utils/moretools');
