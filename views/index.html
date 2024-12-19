@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Professional Interactive Tools Page with Modern UI">
+    <meta name="description" content="Interactive Dashboard with Tools and Features">
     <meta name="author" content="Qasim Ali">
     <title>Interactive Tools - Qasim Ali</title>
 
@@ -12,7 +12,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&family=Oswald:wght@600&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet" />
-
     <style>
         /* General Reset */
         * {
@@ -32,10 +31,9 @@
             min-height: 100%;
             position: relative;
             overflow: hidden;
-            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #f3d800);
+            background: linear-gradient(135deg, #4A90E2, #50E3C2);
             color: #fff;
             transition: background-color 0.3s ease;
-            background-size: cover;
         }
 
         /* Header Section */
@@ -43,46 +41,33 @@
             text-align: center;
             margin-top: 50px;
             margin-bottom: 40px;
+            width: 100%;
+            padding: 20px;
         }
 
         header h1 {
             font-family: 'Oswald', sans-serif;
-            font-size: 70px;
+            font-size: 60px;
             text-transform: uppercase;
             letter-spacing: 5px;
             margin-bottom: 15px;
-            background: linear-gradient(to right, #ff5e57, #f0a500);
+            background: linear-gradient(to right, #f06c64, #ffba00);
             -webkit-background-clip: text;
             color: transparent;
             animation: gradientAnimation 5s ease infinite;
         }
 
         header h2 {
-            font-size: 26px;
+            font-size: 22px;
             margin-bottom: 30px;
             color: #f1f1f1;
             font-weight: 400;
         }
 
-        /* Header Gradient Animation */
-        @keyframes gradientAnimation {
-            0% {
-                background-position: 0% 50%;
-            }
-
-            50% {
-                background-position: 100% 50%;
-            }
-
-            100% {
-                background-position: 0% 50%;
-            }
-        }
-
         /* Button Styling */
         .btn {
             padding: 15px 35px;
-            background-color: #e74c3c;
+            background-color: #ffba00;
             color: white;
             border: none;
             border-radius: 30px;
@@ -90,12 +75,11 @@
             text-transform: uppercase;
             cursor: pointer;
             transition: background-color 0.3s ease;
-            box-shadow: 0 5px 15px rgba(231, 76, 60, 0.3);
-            margin-top: 20px;
+            box-shadow: 0 5px 15px rgba(255, 186, 0, 0.3);
         }
 
         .btn:hover {
-            background-color: #c0392b;
+            background-color: #f06c64;
         }
 
         /* Info Section */
@@ -155,7 +139,7 @@
         .toggle-btn {
             margin-top: 30px;
             padding: 12px 35px;
-            background-color: #3498db;
+            background-color: #2980b9;
             color: white;
             border: none;
             border-radius: 30px;
@@ -165,7 +149,7 @@
         }
 
         .toggle-btn:hover {
-            background-color: #2980b9;
+            background-color: #1f6391;
         }
 
         /* Snowfall Animation */
@@ -206,11 +190,11 @@
         /* Responsive Design */
         @media (max-width: 768px) {
             header h1 {
-                font-size: 50px;
+                font-size: 40px;
             }
 
             header h2 {
-                font-size: 20px;
+                font-size: 18px;
             }
 
             .info-section {
@@ -239,7 +223,7 @@
     <header>
         <h1>Interactive Tools</h1>
         <h2>Qasim Ali's Real-Time Tools and Information</h2>
-        <button class="btn">Get Started</button>
+        <button class="btn" onclick="window.location.href='documentation.html'">View Documentation</button>
     </header>
 
     <div class="info-section">
@@ -260,6 +244,12 @@
             <h3>Memory Usage</h3>
             <p id="memory-usage">Loading...</p>
         </div>
+
+        <!-- Current Time -->
+        <div class="info-card">
+            <h3>Current Time</h3>
+            <p id="current-time">Loading...</p>
+        </div>
     </div>
 
     <!-- Footer -->
@@ -279,6 +269,14 @@
 
         // Memory Usage (Mock Example)
         document.getElementById("memory-usage").innerText = "Memory: 65%";
+
+        // Current Time
+        function updateTime() {
+            const timeElement = document.getElementById("current-time");
+            const now = new Date();
+            timeElement.innerText = now.toLocaleTimeString();
+        }
+        setInterval(updateTime, 1000); // Update every second
 
         // Dark Mode Toggle
         function toggleDarkMode() {
