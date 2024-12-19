@@ -6,12 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Interactive Dashboard with Tools and Features">
     <meta name="author" content="Qasim Ali">
-    <title>Interactive Tools - Qasim Ali</title>
+    <title>Interactive Dashboard</title>
 
     <!-- External Libraries -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&family=Oswald:wght@600&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet" />
+
     <style>
         /* General Reset */
         * {
@@ -24,273 +24,313 @@
         body {
             font-family: 'Roboto', sans-serif;
             display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
+            justify-content: center;
             align-items: center;
-            height: 100%;
-            min-height: 100%;
-            position: relative;
-            overflow: hidden;
-            background: linear-gradient(135deg, #4A90E2, #50E3C2);
+            height: 100vh;
+            background: linear-gradient(45deg, #6ab7ff, #89e0ff);
             color: #fff;
-            transition: background-color 0.3s ease;
+            overflow: hidden;
+            transition: background-color 0.5s ease;
+        }
+
+        /* Container for Content */
+        .dashboard-container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 20px;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
         }
 
         /* Header Section */
         header {
-            text-align: center;
-            margin-top: 50px;
-            margin-bottom: 40px;
+            display: flex;
+            justify-content: center;
             width: 100%;
-            padding: 20px;
+            padding: 5px 15px;  /* Reduced padding */
+            background: #333;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            color: white;
+            align-items: center;
+            flex-direction: column;
         }
 
         header h1 {
-            font-family: 'Oswald', sans-serif;
-            font-size: 60px;
-            text-transform: uppercase;
-            letter-spacing: 5px;
-            margin-bottom: 15px;
-            background: linear-gradient(to right, #f06c64, #ffba00);
-            -webkit-background-clip: text;
-            color: transparent;
-            animation: gradientAnimation 5s ease infinite;
+            font-size: 22px;  /* Reduced font size */
+            margin-bottom: 8px; /* Reduced margin */
         }
 
-        header h2 {
-            font-size: 22px;
-            margin-bottom: 30px;
-            color: #f1f1f1;
-            font-weight: 400;
-        }
-
-        /* Button Styling */
-        .btn {
-            padding: 15px 35px;
-            background-color: #ffba00;
+        header .documentation-btn {
+            font-size: 14px;  /* Reduced font size */
+            padding: 5px 10px;  /* Reduced padding */
+            margin-top: 10px;
+            cursor: pointer;
+            background: #ff6600;
             color: white;
             border: none;
-            border-radius: 30px;
-            font-size: 18px;
-            text-transform: uppercase;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            box-shadow: 0 5px 15px rgba(255, 186, 0, 0.3);
+            border-radius: 5px;
         }
 
-        .btn:hover {
-            background-color: #f06c64;
+        header .documentation-btn:hover {
+            background: #ff4500;
         }
 
-        /* Info Section */
-        .info-section {
-            display: flex;
-            justify-content: space-around;
-            flex-wrap: wrap;
-            gap: 40px;
-            margin-top: 50px;
+        /* Main Content */
+        .tools {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
             width: 100%;
-            padding: 0 20px;
         }
 
-        .info-card {
-            background-color: #34495e;
-            color: white;
-            padding: 30px;
-            border-radius: 15px;
-            width: 250px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-            transition: transform 0.3s ease-in-out;
-            background: linear-gradient(135deg, #8e44ad, #3498db);
-        }
-
-        .info-card:hover {
-            transform: scale(1.05);
-            background: linear-gradient(135deg, #ff5e57, #f0a500);
-        }
-
-        .info-card h3 {
-            font-size: 20px;
-            margin-bottom: 20px;
-        }
-
-        .info-card p {
-            font-size: 18px;
-        }
-
-        .info-card .value {
-            font-weight: bold;
-            font-size: 20px;
-        }
-
-        /* Footer Styling */
-        footer {
+        .tool-card {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 15px;
+            border-radius: 10px;
             text-align: center;
-            padding: 30px;
-            background-color: #2c3e50;
-            color: white;
-            width: 100%;
-            position: relative;
-            bottom: 0;
-            margin-top: 30px;
+            color: #fff;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
         }
 
-        /* Dark Mode Toggle */
+        .tool-card h3 {
+            margin-bottom: 10px;
+            font-size: 18px; /* Reduced font size */
+        }
+
+        .tool-card p {
+            font-size: 14px; /* Reduced font size */
+            margin-bottom: 10px;
+        }
+
+        .tool-card .data {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        /* Footer */
+        footer {
+            margin-top: 10px;
+            color: white;
+            text-align: center;
+        }
+
+        /* Dark Mode Button */
         .toggle-btn {
-            margin-top: 30px;
-            padding: 12px 35px;
-            background-color: #2980b9;
+            cursor: pointer;
+            font-size: 16px;  /* Reduced font size */
+            background: #ff6600;
             color: white;
             border: none;
-            border-radius: 30px;
-            cursor: pointer;
-            font-size: 18px;
-            transition: background-color 0.3s ease;
+            padding: 8px 15px;
+            border-radius: 5px;
+            margin-top: 10px;
         }
 
         .toggle-btn:hover {
-            background-color: #1f6391;
+            background: #ff4500;
         }
 
-        /* Snowfall Animation */
-        .snow {
+        /* Weather Card */
+        .weather-card {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            color: #fff;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .weather-card h3 {
+            margin-bottom: 10px;
+            font-size: 18px; /* Reduced font size */
+        }
+
+        /* Animation for Falling Stars (for a more magical background) */
+        @keyframes fallStars {
+            from {
+                top: -50px;
+                opacity: 1;
+            }
+            to {
+                top: 100%;
+                opacity: 0;
+            }
+        }
+
+        .falling-stars {
             position: absolute;
-            top: -50px;
-            left: 0;
+            top: 0;
+            left: 50%;
             width: 100%;
             height: 100%;
             pointer-events: none;
-            z-index: -1;
+            animation: fallStars 5s infinite linear;
         }
 
-        .snow .flake {
+        .falling-stars img {
             position: absolute;
-            width: 10px;
-            height: 10px;
-            background-color: #fff;
-            border-radius: 50%;
-            opacity: 0.7;
-            animation: snow-fall 5s infinite linear;
+            animation: starfall 2s infinite;
+            left: 50%;
         }
 
-        @keyframes snow-fall {
-            0% {
-                top: -10px;
-                opacity: 0.8;
-                transform: translateX(0);
-            }
-
-            100% {
-                top: 100%;
-                opacity: 0.5;
-                transform: translateX(30px);
-            }
-        }
-
-        /* Responsive Design */
+        /* Responsive Layout */
         @media (max-width: 768px) {
-            header h1 {
-                font-size: 40px;
+            body {
+                background: linear-gradient(45deg, #0066cc, #3399ff);
             }
 
-            header h2 {
-                font-size: 18px;
+            .dashboard-container {
+                margin: 10px;
+                padding: 15px;
             }
 
-            .info-section {
+            .tool-card {
+                padding: 10px;
+            }
+
+            header {
                 flex-direction: column;
                 align-items: center;
             }
+        }
 
-            .info-card {
-                width: 200px;
+        @media (max-width: 480px) {
+            .tool-card {
+                font-size: 14px;
+            }
+
+            header h1 {
+                font-size: 20px; /* Smaller font size */
+            }
+
+            header .documentation-btn {
+                font-size: 12px; /* Smaller button font size */
             }
         }
     </style>
 </head>
 
 <body>
-
-    <!-- Snow Animation -->
-    <div class="snow">
-        <div class="flake" style="animation-delay: 0s; left: 20%;"></div>
-        <div class="flake" style="animation-delay: 1s; left: 50%;"></div>
-        <div class="flake" style="animation-delay: 2s; left: 80%;"></div>
-        <div class="flake" style="animation-delay: 3s; left: 40%;"></div>
-        <div class="flake" style="animation-delay: 4s; left: 60%;"></div>
+    <!-- Falling Stars Animation -->
+    <div class="falling-stars">
+        <img src="https://www.example.com/star1.png" alt="Star" style="animation-delay: 0.5s; left: 10%;">
+        <img src="https://www.example.com/star2.png" alt="Star" style="animation-delay: 1s; left: 20%;">
+        <img src="https://www.example.com/star3.png" alt="Star" style="animation-delay: 1.5s; left: 30%;">
+        <img src="https://www.example.com/star4.png" alt="Star" style="animation-delay: 2s; left: 40%;">
+        <img src="https://www.example.com/star5.png" alt="Star" style="animation-delay: 2.5s; left: 50%;">
     </div>
 
-    <header>
-        <h1>Interactive Tools</h1>
-        <h2>Qasim Ali's Real-Time Tools and Information</h2>
-        <button class="btn" onclick="window.location.href='documentation.html'">View Documentation</button>
-    </header>
+    <div class="dashboard-container">
+        <header>
+            <h1>Interactive Dashboard</h1>
+            <button class="documentation-btn" onclick="window.location.href='documentation.html'">Documentation</button>
+        </header>
 
-    <div class="info-section">
-        <!-- Battery Status -->
-        <div class="info-card">
-            <h3>Battery Status</h3>
-            <p id="battery-status">Loading...</p>
+        <div class="tools">
+            <!-- CPU Usage -->
+            <div class="tool-card">
+                <h3>CPU Usage</h3>
+                <p>Current Usage:</p>
+                <div class="data" id="cpu-usage">50%</div>
+            </div>
+
+            <!-- Battery Status -->
+            <div class="tool-card">
+                <h3>Battery Status</h3>
+                <p>Battery Level:</p>
+                <div class="data" id="battery-level">90%</div>
+            </div>
+
+            <!-- Memory Usage -->
+            <div class="tool-card">
+                <h3>Memory Usage</h3>
+                <p>Memory Used:</p>
+                <div class="data" id="memory-usage">4GB</div>
+            </div>
+
+            <!-- Time -->
+            <div class="tool-card">
+                <h3>Current Time</h3>
+                <p>Time:</p>
+                <div class="data" id="current-time">12:00:00</div>
+            </div>
+
+            <!-- Weather -->
+            <div class="weather-card">
+                <h3>Weather</h3>
+                <p>Current Temp:</p>
+                <div class="data" id="weather-temp">25°C</div>
+                <p id="weather-description">Clear Sky</p>
+            </div>
         </div>
 
-        <!-- CPU Usage -->
-        <div class="info-card">
-            <h3>CPU Usage</h3>
-            <p id="cpu-usage">Loading...</p>
-        </div>
-
-        <!-- Memory Usage -->
-        <div class="info-card">
-            <h3>Memory Usage</h3>
-            <p id="memory-usage">Loading...</p>
-        </div>
-
-        <!-- Current Time -->
-        <div class="info-card">
-            <h3>Current Time</h3>
-            <p id="current-time">Loading...</p>
-        </div>
-    </div>
-
-    <!-- Footer -->
-    <footer>
-        <p>&copy; 2024 Qasim Ali - All rights reserved.</p>
         <button class="toggle-btn" onclick="toggleDarkMode()">Toggle Dark Mode</button>
-    </footer>
+
+        <footer>
+            <p>&copy; 2024 Qasim Ali | <a href="/docs" style="color: #ff6600;">Documentation</a></p>
+        </footer>
+    </div>
 
     <script>
-        // Battery Status
-        navigator.getBattery().then(function (battery) {
-            document.getElementById("battery-status").innerText = `Battery: ${Math.round(battery.level * 100)}%`;
-        });
-
-        // CPU Usage (Mock Example)
-        document.getElementById("cpu-usage").innerText = "CPU: 45%";
-
-        // Memory Usage (Mock Example)
-        document.getElementById("memory-usage").innerText = "Memory: 65%";
-
-        // Current Time
-        function updateTime() {
-            const timeElement = document.getElementById("current-time");
-            const now = new Date();
-            timeElement.innerText = now.toLocaleTimeString();
-        }
-        setInterval(updateTime, 1000); // Update every second
-
-        // Dark Mode Toggle
+        // Toggle Dark Mode
         function toggleDarkMode() {
-            const body = document.body;
-            body.classList.toggle("dark-mode");
-
-            // Change button text
-            const button = document.querySelector(".toggle-btn");
-            if (body.classList.contains("dark-mode")) {
-                button.textContent = "Light Mode";
+            document.body.classList.toggle("dark-mode");
+            const toggleButton = document.querySelector('.toggle-btn');
+            if (document.body.classList.contains('dark-mode')) {
+                document.body.style.background = '#333';
+                toggleButton.innerHTML = 'Toggle Light Mode';
             } else {
-                button.textContent = "Dark Mode";
+                document.body.style.background = 'linear-gradient(45deg, #6ab7ff, #89e0ff)';
+                toggleButton.innerHTML = 'Toggle Dark Mode';
             }
         }
+
+        // Update CPU usage (mock data for now)
+        function updateCpuUsage() {
+            const cpuUsage = Math.floor(Math.random() * 100);
+            document.getElementById('cpu-usage').innerText = `${cpuUsage}%`;
+        }
+
+        // Update Battery level (mock data for now)
+        function updateBatteryStatus() {
+            const batteryLevel = Math.floor(Math.random() * 100);
+            document.getElementById('battery-level').innerText = `${batteryLevel}%`;
+        }
+
+        // Update Memory usage (mock data for now)
+        function updateMemoryUsage() {
+            const memoryUsage = Math.floor(Math.random() * 16) + 2;  // Random 2GB to 16GB
+            document.getElementById('memory-usage').innerText = `${memoryUsage}GB`;
+        }
+
+        // Update Time
+        function updateTime() {
+            const currentTime = new Date().toLocaleTimeString();
+            document.getElementById('current-time').innerText = currentTime;
+        }
+
+        // Weather API mock-up
+        function updateWeather() {
+            // Mock weather data
+            document.getElementById('weather-temp').innerText = '22°C';
+            document.getElementById('weather-description').innerText = 'Clear Sky';
+        }
+
+        // Set intervals to update the data
+        setInterval(updateCpuUsage, 3000);
+        setInterval(updateBatteryStatus, 3000);
+        setInterval(updateMemoryUsage, 3000);
+        setInterval(updateTime, 1000);
+
+        // Call weather update
+        updateWeather();
     </script>
 </body>
 
