@@ -1,5 +1,6 @@
 __path = process.cwd();
 var favicon = require('serve-favicon');
+const path = require('path');
 var express = require('express'),
     cors = require('cors'),
     secure = require('ssl-express-www');
@@ -19,6 +20,20 @@ app.use(express.static("public"))
 
 app.use('/', mainrouter);
 app.use('/api', apirouter);
+app.get('/index', (req, res) => {
+  res.sendFile(path.join(__dirname, 'views', 'index.html'));
+});
+
+app.get('/docs', (req, res) => {
+  res.sendFile(path.join(__dirname, 'views', 'docs.html'));
+});
+
+// Custom 404 Error Handler
+app.use(function (req, res) {
+  res.status(404)
+     .set("Content-Type", "text/html")
+     .sendFile(path.join(__dirname, 'views', '404.html')); // Ensure correct path to 404.html
+});
 
 app.listen(PORT, () => {
     console.log(color("Server running on port " + PORT,'green'))
