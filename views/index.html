@@ -3,21 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Explore Qasim Ali's REST APIs, system status, weather, and more tools">
+  <meta name="description" content="Interactive Web Page with multiple real-time tools">
   <meta name="author" content="Qasim Ali">
-  <meta name="robots" content="index, follow">
-  <meta property="og:title" content="Qasim Ali's REST APIs">
-  <meta property="og:description" content="Explore, learn, and implement Qasim Ali's REST APIs.">
-  <meta property="og:image" content="https://i.ibb.co/1LCyWRW/Creepypasta.jpg">
-  <link rel="icon" href="https://i.ibb.co/1LCyWRW/Creepypasta.jpg">
-  <title>Qasim Ali - REST APIs</title>
+  <title>Interactive Tools - Qasim Ali</title>
 
-  <!-- External Stylesheets -->
+  <!-- External Libraries -->
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&family=Oswald:wght@600&display=swap" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+
   <style>
-    /* Resetting margin and padding */
+    /* General Reset */
     * {
       margin: 0;
       padding: 0;
@@ -27,20 +23,20 @@
     /* Body and Layout */
     body {
       font-family: 'Roboto', sans-serif;
-      background-color: #f0f4f8;
-      color: #333;
-      overflow: hidden;
+      background-color: #1f1f1f;
+      color: white;
       margin: 0;
       padding: 0;
       display: flex;
       flex-direction: column;
-      align-items: center;
       justify-content: center;
+      align-items: center;
       height: 100vh;
       position: relative;
+      overflow: hidden;
     }
 
-    /* Background Snowfall Animation */
+    /* Snowfall Effect */
     @keyframes snowfall {
       0% {
         transform: translateY(0);
@@ -62,39 +58,38 @@
     .snow .flake {
       position: absolute;
       top: -10px;
-      width: 6px;
-      height: 6px;
-      background: #fff;
+      width: 8px;
+      height: 8px;
+      background: white;
       border-radius: 50%;
-      opacity: 0.8;
       animation: snowfall 10s linear infinite;
+      opacity: 0.8;
     }
 
     /* Header Section */
     header {
-      background-color: rgba(44, 62, 80, 0.8);
-      color: white;
-      padding: 60px 20px;
       text-align: center;
-      width: 100%;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      color: #ffffff;
+      margin-bottom: 40px;
       z-index: 2;
     }
 
     header h1 {
-      font-size: 45px;
       font-family: 'Oswald', sans-serif;
+      font-size: 45px;
       text-transform: uppercase;
       letter-spacing: 2px;
+      margin-bottom: 10px;
+      color: #ff5e57;
     }
 
     header h2 {
       font-size: 20px;
-      font-weight: normal;
-      margin-top: 15px;
+      margin-bottom: 20px;
+      color: #f0a500;
     }
 
-    /* Main Content Section */
+    /* Main Content */
     main {
       text-align: center;
       z-index: 2;
@@ -106,7 +101,7 @@
     .btn {
       padding: 14px 30px;
       background-color: #3498db;
-      color: #fff;
+      color: white;
       border: none;
       border-radius: 30px;
       font-size: 16px;
@@ -168,7 +163,7 @@
       width: 100%;
     }
 
-    /* Smooth Animations for Sections */
+    /* Smooth Animations */
     .animate-section {
       opacity: 0;
       animation: fadeIn 1.5s ease-in-out forwards;
@@ -183,7 +178,7 @@
       }
     }
 
-    /* Device Info Styling */
+    /* Device Info Section Styling */
     .device-info {
       font-size: 18px;
       color: #fff;
@@ -210,82 +205,78 @@
   </div>
 
   <!-- Header Section -->
-  <header class="animate-section">
-    <h1>Qasim Ali's REST APIs</h1>
-    <h2>Explore the world of APIs and integrate them into your applications</h2>
+  <header>
+    <h1>Qasim Ali's Interactive Tools</h1>
+    <h2>Explore Real-Time System Stats, Weather, and More</h2>
   </header>
 
-  <!-- Main Content -->
+  <!-- Main Section -->
   <main>
-    <h2 class="animate-section">Welcome to My REST APIs Hub</h2>
-    <p class="animate-section">Discover, learn, and implement powerful APIs</p>
-    <a href="/docs" class="btn animate-section">Go to Documentation</a>
+    <button class="btn" onclick="window.location.href='/docs'">Go to Documentation</button>
 
-    <!-- System Info Section -->
-    <div class="info-section">
-      <!-- Battery Info -->
-      <div class="info-card animate-section">
+    <!-- Info Cards -->
+    <div class="info-section animate-section">
+      <div class="info-card">
         <h3>Battery Status</h3>
-        <p id="battery">Loading...</p>
+        <p id="battery-status">Loading...</p>
       </div>
-
-      <!-- Current Time -->
-      <div class="info-card animate-section">
-        <h3>Current Time</h3>
-        <p id="current-time">00:00:00</p>
+      <div class="info-card">
+        <h3>CPU Usage</h3>
+        <p id="cpu-usage">Loading...</p>
       </div>
-
-      <!-- Geolocation Info -->
-      <div class="info-card animate-section">
-        <h3>Geolocation</h3>
-        <p id="location">Fetching location...</p>
+      <div class="info-card">
+        <h3>Memory Usage</h3>
+        <p id="memory-usage">Loading...</p>
+      </div>
+      <div class="info-card">
+        <h3>Weather</h3>
+        <p id="weather-info">Loading...</p>
       </div>
     </div>
 
-    <!-- Device Info (CPU, Browser, etc.) -->
-    <div class="device-info animate-section" id="device-info">
-      Loading device info...
+    <!-- Device Info Section -->
+    <div class="device-info">
+      <p id="device-info">Loading device info...</p>
     </div>
+
+    <footer>
+      <p>© 2024 Qasim Ali. All Rights Reserved.</p>
+    </footer>
   </main>
 
-  <!-- Footer -->
-  <footer>
-    <p>&copy; 2024 Qasim Ali | All Rights Reserved</p>
-  </footer>
-
-  <!-- Scripts -->
+  <!-- Scripts for Dynamic Content -->
   <script>
-    // Battery Status Function
+    // Battery Status
     navigator.getBattery().then(function(battery) {
-      const batteryInfo = document.getElementById('battery');
-      batteryInfo.innerHTML = `Battery: ${Math.round(battery.level * 100)}%`;
-
-      battery.addEventListener('levelchange', function() {
-        batteryInfo.innerHTML = `Battery: ${Math.round(battery.level * 100)}%`;
-      });
+      document.getElementById('battery-status').textContent = `Level: ${Math.round(battery.level * 100)}% | Charging: ${battery.charging ? 'Yes' : 'No'}`;
     });
 
-    // Current Time Function
-    function updateTime() {
-      const currentTime = new Date();
-      document.getElementById('current-time').textContent = currentTime.toLocaleTimeString();
-    }
-    setInterval(updateTime, 1000);
-    updateTime(); // Initialize the time immediately
+    // CPU Usage (Simple Approximation)
+    setInterval(() => {
+      fetch('/cpu-usage')  // Assume API or JavaScript logic that provides CPU usage
+        .then(response => response.json())
+        .then(data => {
+          document.getElementById('cpu-usage').textContent = `CPU Usage: ${data.cpu}%`;
+        });
+    }, 1000);
 
-    // Geolocation API
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(function(position) {
-        const latitude = position.coords.latitude;
-        const longitude = position.coords.longitude;
-        document.getElementById('location').textContent = `Latitude: ${latitude}, Longitude: ${longitude}`;
-      }, function() {
-        document.getElementById('location').textContent = 'Geolocation not available';
+    // Memory Usage
+    setInterval(() => {
+      const memory = window.performance.memory;
+      document.getElementById('memory-usage').textContent = `Used: ${Math.round(memory.usedJSHeapSize / 1024 / 1024)} MB | Total: ${Math.round(memory.totalJSHeapSize / 1024 / 1024)} MB`;
+    }, 1000);
+
+    // Weather API (Example)
+    fetch('https://api.openweathermap.org/data/2.5/weather?q=Pakistan&appid=060a6bcfa19809c2cd4d97a212b19273&units=metric')
+      .then(response => response.json())
+      .then(data => {
+        document.getElementById('weather-info').textContent = `${data.weather[0].description} | ${data.main.temp}°C`;
       });
-    }
 
-    // Device Info (Browser & OS)
-    document.getElementById('device-info').textContent = `Browser: ${navigator.appName}, OS: ${navigator.platform}`;
+    // Device Info
+    const deviceInfo = `Device: ${navigator.platform}, Browser: ${navigator.userAgent}`;
+    document.getElementById('device-info').textContent = deviceInfo;
+
   </script>
 
 </body>
