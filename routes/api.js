@@ -463,31 +463,52 @@ router.get('/llama', async (req, res, next) => {
   }
 });
 router.get('/mistral', async (req, res, next) => {
-  const apikey = req.query.apikey;
-  const text = req.query.text;
-  
-  if (!apikey) return res.json(loghandler.notparam);
-  if (!text) return res.json(loghandler.notquery);
-  
-  if (listkey.includes(apikey)) {
-    try {
-      // Send 'text' parameter in the API request
-      const response = await fetch(encodeURI(`https://api.gurusensei.workers.dev/mistral?text=${text}`));
-      const hasil = await response.json();
-      
-      // Return the response in JSON format
+  const apikey = req.query.apikey;  // Retrieve the API key from the query string
+  const text = req.query.text;  // Retrieve the text parameter
+
+  if (!apikey) return res.json({ status: false, message: "API key is missing" });
+  if (!text) return res.json({ status: false, message: "Text is missing" });
+  const encodedText = encodeURIComponent(text);  // Safely encode the text
+  const guru1 = `https://api.gurusensei.workers.dev/mistral?text=${encodedText}`;
+
+  try {
+    // Fetch data from the API
+    let response = await fetch(guru1);
+
+    // Check if the response is okay (status code 200)
+    if (!response.ok) {
+      return res.json({ status: false, message: "Failed to fetch from the API." });
+    }
+
+    // Parse the response as JSON
+    let data = await response.json();
+
+    // Check if the expected 'data' field exists in the API response
+    if (data.data) {
+      let result = data.response.response  // Extract the result from the response
+
+      // Return the result as a JSON response
       res.json({
         status: true,
-        creator: `${creator}`,
-        result: hasil.data // Assuming 'data' is part of the API response
+        creator: "Qasim",  // Replace with actual creator name
+        result: result,
       });
-    } catch (e) {
-      res.json(loghandler.error);
+    } else {
+      res.json({
+        status: false,
+        message: "The response structure is not as expected.",
+      });
     }
-  } else {
-    res.json(loghandler.invalidKey);
+  } catch (error) {
+    // Handle any errors that occur during the fetch or JSON parsing
+    res.json({
+      status: false,
+      message: "An error occurred while fetching the data.",
+      error: error.message,
+    });
   }
 });
+
 router.get('/dream', async (req, res, next) => {
   const apikey = req.query.apikey;
   const prompt = req.query.prompt;
