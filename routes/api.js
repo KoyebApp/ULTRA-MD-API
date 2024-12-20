@@ -436,8 +436,7 @@ router.get('/music/spotify', async (req, res, next) => {
     res.json(loghandler.invalidKey);
   }
 });
-
-const = {
+const {
   TikTokStalk,
   TikTokDownload,
   TikTokDownload2,
@@ -453,6 +452,7 @@ const = {
   TwitterDownload,
   InstagramStory
 } = require('./../lib/utils/dylux');  // Import all the functions
+
 
 // TikTok Stalk Route
 router.get('/tiktokstalk', async (req, res) => {
