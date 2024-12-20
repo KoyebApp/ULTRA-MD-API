@@ -436,6 +436,155 @@ router.get('/music/spotify', async (req, res, next) => {
     res.json(loghandler.invalidKey);
   }
 });
+const { 
+  TikTokStalk, 
+  YoutubeMP3, 
+  YoutubeMP4, 
+  SoundCloud, 
+  PinterestSearch, 
+  WallpaperSearch, 
+  StickerSearch, 
+  NpmSearch, 
+  FacebookDownload, 
+  TwitterDownload, 
+  InstagramStory 
+} = require('./../lib/utils/dylux');  // Import all the functions
+
+// TikTok Stalk Route
+router.get('/tiktok', async (req, res) => {
+  const query = req.query.query;
+  const apikey = req.query.apikey;
+  if (!query) return res.json({ status: false, message: '✳️ Enter the Username of a TikTok user' });
+  if (!apikey) return res.json({ status: false, message: '✳️ Enter the API Key' });
+  
+  try {
+    await TikTokStalk(req, res, [query]);
+  } catch (error) {
+    res.json({ status: false, message: error });
+  }
+});
+
+// YouTube MP3 Route
+router.get('/youtube/mp3', async (req, res) => {
+  const query = req.query.query;
+  if (!query) return res.json({ status: false, message: '✳️ Enter the YouTube video URL' });
+  
+  try {
+    await YoutubeMP3(req, res, [query]);
+  } catch (error) {
+    res.json({ status: false, message: error });
+  }
+});
+
+// YouTube MP4 Route
+router.get('/youtube/mp4', async (req, res) => {
+  const query = req.query.query;
+  if (!query) return res.json({ status: false, message: '✳️ Enter the YouTube video URL' });
+  
+  try {
+    await YoutubeMP4(req, res, [query]);
+  } catch (error) {
+    res.json({ status: false, message: error });
+  }
+});
+
+// SoundCloud Route
+router.get('/soundcloud', async (req, res) => {
+  const query = req.query.query;
+  if (!query) return res.json({ status: false, message: '✳️ Enter the SoundCloud track URL' });
+
+  try {
+    await SoundCloud(req, res, [query]);
+  } catch (error) {
+    res.json({ status: false, message: error });
+  }
+});
+
+// Pinterest Search Route
+router.get('/pinterest', async (req, res) => {
+  const query = req.query.query;
+  if (!query) return res.json({ status: false, message: '✳️ Enter the Pinterest search term' });
+
+  try {
+    await PinterestSearch(req, res, [query]);
+  } catch (error) {
+    res.json({ status: false, message: error });
+  }
+});
+
+// Wallpaper Search Route
+router.get('/wallpaper', async (req, res) => {
+  const query = req.query.query;
+  if (!query) return res.json({ status: false, message: '✳️ Enter the wallpaper search term' });
+
+  try {
+    await WallpaperSearch(req, res, [query]);
+  } catch (error) {
+    res.json({ status: false, message: error });
+  }
+});
+
+// Sticker Search Route
+router.get('/sticker', async (req, res) => {
+  const query = req.query.query;
+  if (!query) return res.json({ status: false, message: '✳️ Enter the sticker search term' });
+
+  try {
+    await StickerSearch(req, res, [query]);
+  } catch (error) {
+    res.json({ status: false, message: error });
+  }
+});
+
+// npm Search Route
+router.get('/npm', async (req, res) => {
+  const query = req.query.query;
+  if (!query) return res.json({ status: false, message: '✳️ Enter the npm search term' });
+
+  try {
+    await NpmSearch(req, res, [query]);
+  } catch (error) {
+    res.json({ status: false, message: error });
+  }
+});
+
+// Facebook Download Route
+router.get('/facebook', async (req, res) => {
+  const query = req.query.query;
+  if (!query) return res.json({ status: false, message: '✳️ Enter the Facebook video URL' });
+
+  try {
+    await FacebookDownload(req, res, [query]);
+  } catch (error) {
+    res.json({ status: false, message: error });
+  }
+});
+
+// Twitter Download Route
+router.get('/twitter', async (req, res) => {
+  const query = req.query.query;
+  if (!query) return res.json({ status: false, message: '✳️ Enter the Twitter video URL' });
+
+  try {
+    await TwitterDownload(req, res, [query]);
+  } catch (error) {
+    res.json({ status: false, message: error });
+  }
+});
+
+// Instagram Story Route
+router.get('/instagram/story', async (req, res) => {
+  const query = req.query.query;
+  if (!query) return res.json({ status: false, message: '✳️ Enter the Instagram username' });
+
+  try {
+    await InstagramStory(req, res, [query]);
+  } catch (error) {
+    res.json({ status: false, message: error });
+  }
+});
+
+
 
 router.get('/download/ytmp3', async (req, res, next) => {
   const url = req.query.url;
@@ -1036,7 +1185,7 @@ router.get('/muslim/tahlil', async (req, res, next) => {
   if (!Apikey) return res.json(loghandler.notparam);
   if (listkey.includes(Apikey)) {
     try {
-      const response = await fetch(encodeURI('https://raw.githubusercontent.com/GlobalTechInfo/Qasim-Database/main/data/tahlil.json'));
+      const response = await fetch(encodeURI('https://raw.githubusercontent.com/GlobalTechInfo/Qasim-Database/main/data/dataTahlil.json'));
       const data = await response.json();
       res.json({ result: data });
     } catch (e) {
