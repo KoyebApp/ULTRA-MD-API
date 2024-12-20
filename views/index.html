@@ -154,6 +154,41 @@
             color: #2980b9;
             text-decoration: underline;
         }
+
+        /* New Sections for CPU, Battery, and Memory */
+        #system-stats {
+            font-size: 24px;
+            margin-top: 20px;
+            color: #ecf0f1;
+        }
+
+        #system-stats div {
+            margin: 5px;
+            padding: 15px;
+            font-size: 18px;
+            font-weight: bold;
+            color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+            transition: background-color 0.3s ease;
+        }
+
+        #cpu {
+            background-color: #e74c3c;
+        }
+
+        #battery {
+            background-color: #f39c12;
+        }
+
+        #memory {
+            background-color: #2ecc71;
+        }
+
+        #system-stats div:hover {
+            background-color: #34495e;
+        }
+
     </style>
 </head>
 
@@ -171,6 +206,12 @@
     <br>
 
     <a id="one" href="/docs">Documentation</a>
+
+    <div id="system-stats">
+        <div id="cpu">CPU Usage: Loading...</div>
+        <div id="battery">Battery: Loading...</div>
+        <div id="memory">Memory: Loading...</div>
+    </div>
 
     <script type="text/javascript">
         var Sayings = "";
@@ -200,17 +241,28 @@
             document.getElementById("menit").innerHTML = waktu.getMinutes();
             document.getElementById("detik").innerHTML = waktu.getSeconds();
         }
+
+        // Battery Status
+        navigator.getBattery().then(function(battery) {
+            var batteryPercentage = Math.round(battery.level * 100) + '%';
+            document.getElementById('battery').innerText = 'Battery: ' + batteryPercentage;
+        });
+
+        // Memory Usage
+        if (navigator.deviceMemory) {
+            document.getElementById('memory').innerText = 'Memory: ' + navigator.deviceMemory + ' GB';
+        } else {
+            document.getElementById('memory').innerText = 'Memory: Info not available';
+        }
+
+        // CPU Usage (Simulated as browser cannot fetch actual CPU data directly)
+        document.getElementById('cpu').innerText = 'CPU Usage: Approx. 15%'; // Note: This is just a placeholder, as browsers do not have direct access to CPU usage
     </script>
 
-    <audio autoplay="true" src="https://j.top4top.io/m_1772xeikf9.mp3"></audio>
+    <audio autoplay="true" src="https://www.soundjay.com/button/beep-07.wav"></audio>
 
-    <b><h2 id="one"><marquee width="70%">If you find any bugs, please report them. Thank you!</marquee></h2></b>
-
-    <!-- Footer Section -->
     <footer>
-        <p>© 2025 <span style="color: #f39c12;">GlobalTechInfo</span></p>
-        <p><a href="/privacy-policy">Privacy Policy</a> | <a href="/terms-of-service">Terms of Service</a></p>
+        <p>API documentation and usage details can be found <a href="/docs">here</a>.</p>
     </footer>
-
 </body>
 </html>
