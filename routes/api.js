@@ -2917,7 +2917,7 @@ router.get('/maker/emoji2png', async (req, res, next) => {
         status: true,
         code: 200,
         creator: `${creator}`,
-        result: img_emoji.images[0].url,
+        result: img_emoji.images[0],
       });
     } catch (err) {
       console.error("Error fetching emoji image:", err);
