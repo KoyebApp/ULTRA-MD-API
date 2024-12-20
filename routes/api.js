@@ -437,22 +437,25 @@ router.get('/music/spotify', async (req, res, next) => {
   }
 });
 
-const { 
-  TikTokStalk, 
-  YoutubeMP3, 
-  YoutubeMP4, 
-  SoundCloud, 
-  PinterestSearch, 
-  WallpaperSearch, 
-  StickerSearch, 
-  NpmSearch, 
-  FacebookDownload, 
-  TwitterDownload, 
-  InstagramStory 
+const = {
+  TikTokStalk,
+  TikTokDownload,
+  TikTokDownload2,
+  YoutubeMP3,
+  YoutubeMP4,
+  SoundCloud,
+  SoundCloud2,
+  PinterestSearch,
+  WallpaperSearch,
+  StickerSearch,
+  NpmSearch,
+  FacebookDownload,
+  TwitterDownload,
+  InstagramStory
 } = require('./../lib/utils/dylux');  // Import all the functions
 
 // TikTok Stalk Route
-router.get('/tiktokdl', async (req, res) => {
+router.get('/tiktokstalk', async (req, res) => {
   const Apikey = req.query.apikey;
   const username = req.query.query;
 
