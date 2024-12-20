@@ -450,6 +450,38 @@ const {
   TwitterDownload,
 } = require('./../lib/utils/dylux');  // Import all the functions
 
+// TikTok stalk route
+router.get('/stalk/tiktoks', async (req, res, next) => {
+  const Apikey = req.query.apikey;
+  const username = req.query.username;
+
+  if (!Apikey) return res.json(loghandler.notparam);
+  if (!listkey.includes(Apikey)) return res.json(loghandler.invalidKey);
+  if (!username) return res.json(loghandler.notusername);
+
+  try {
+    const user = await fg.ttStalk(username);
+    res.json({
+      status: true,
+      creator: creator,
+      result: {
+        name: user.name,
+        username: user.username,
+        followers: user.followers,
+        following: user.following,
+        desc: user.desc,
+        link: `https://tiktok.com/@${user.username}`,
+      }
+    });
+  } catch (e) {
+    res.json({
+      status: false,
+      creator: creator,
+      message: "Error, username might be invalid"
+    });
+  }
+});
+
 
 // TikTok Stalk Route
 router.get('/stalk/tiktok', async (req, res) => {
