@@ -15,159 +15,202 @@
 
     <style>
         body {
-            font-family: 'New Rocker', cursive;
-            background: black;
-            background-size: cover;
-            -webkit-background-size: cover;
-            background-position: center;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(to bottom right, #1a1a1a, #2c3e50);
+            color: #ecf0f1;
             margin: 0;
             padding: 0;
-            color: white;
+            text-align: center;
+            overflow: hidden;
         }
 
         .blink {
-            animation: farhan 1s linear infinite;
+            animation: blinkEffect 1.5s linear infinite;
         }
 
-        @keyframes farhan {
-            0% { opacity: 1.0; }
-            50% { opacity: 0.0; }
-            100% { opacity: 1.0; }
+        @keyframes blinkEffect {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
         }
 
         .text-success {
-            color: #fff;
+            color: #f39c12;
             font-size: 28px;
-            font-family: 'Grenze Gotisch', cursive;
-            text-shadow: 0px 0px 8px #ff0000, 0px 0px 16px #ff0000;
+            font-weight: 700;
+            text-shadow: 0px 0px 6px rgba(243, 156, 18, 0.8), 0px 0px 12px rgba(243, 156, 18, 0.8);
         }
 
         h2 {
-            color: #fff;
-            text-shadow: 0px 0px 12px red, -1px 0px red, 0px 1px red, 1px 0px red, 0px -1px red;
+            font-size: 4rem;
+            color: #e74c3c;
+            text-shadow: 0px 0px 12px rgba(231, 76, 60, 0.8), 0px 0px 20px rgba(231, 76, 60, 0.8);
+            margin: 20px;
+            font-weight: 800;
+        }
+
+        .back-text {
+            color: #ecf0f1;
+            font-size: 36px;
             font-family: 'Grenze Gotisch', cursive;
-            font-size: 7vmin;
-            text-align: center;
-            letter-spacing: 1px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            text-shadow: 0px 0px 20px rgba(231, 76, 60, 0.8);
+            animation: pulse 1.5s ease-in-out infinite;
         }
 
-        .image {
-            margin-top: 15%;
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
         }
 
-        .two {
-            color: red;
-        }
-
-        .one {
-            color: white;
-        }
-
-        #back  { 
+        #back {
             border-radius: 5px;
-            filter: drop-shadow(0px 0px 7px red);
-        }
-
-        p {
-            padding: 0;
-            padding-bottom: 11%;
-            text-align: center;
-            font-size: 8vmin;
-            background: linear-gradient(90deg, #000, #fff, red, #000);
-            background-clip: text;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: FXC7 5s linear infinite;
-            letter-spacing: 2px;
-        }
-
-        @keyframes FXC7 {
-            0% { background-position-x: -500%; }
-            100% { background-position-x: 500%; }
-        }
-
-        #jam, #menit, #detik { 
-            color: #fff;
-            font-size: 50px;
-            font-family: 'Grenze Gotisch', cursive;
-        }
-
-        #locale {
-            color: red;
-            font-size: 50px;
-            font-family: 'Grenze Gotisch', cursive;
-        }
-
-        #one {
-            color: #fff;
-            font-size: 30px;
-            font-family: 'Grenze Gotisch', cursive;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.5);
+            box-shadow: 0px 0px 15px rgba(231, 76, 60, 0.8);
+            margin-top: 30px;
         }
 
         a {
-            color: #fff;
+            color: #3498db;
             font-size: 20px;
-            font-family: 'Grenze Gotisch', cursive;
+            font-family: 'Poppins', sans-serif;
             text-decoration: none;
-            text-shadow: 0px 0px 6px #ff0000;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+            margin-top: 20px;
+            display: inline-block;
+            transition: all 0.3s ease;
         }
 
         a:hover {
-            color: #ff0000;
-            text-shadow: 0px 0px 12px #ff0000;
-            transition: color 0.3s ease, text-shadow 0.3s ease;
+            color: #2980b9;
+            text-decoration: underline;
+            text-shadow: 0px 0px 10px #2980b9;
+        }
+
+        p {
+            font-size: 4vmin;
+            margin: 30px;
+            color: #ecf0f1;
+            background: linear-gradient(to left, #ff6a00, #d64b10);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradientAnimation 5s linear infinite;
+        }
+
+        @keyframes gradientAnimation {
+            0% { background-position: 200% 0%; }
+            100% { background-position: -200% 0%; }
+        }
+
+        #jam, #menit, #detik {
+            color: #fff;
+            font-size: 50px;
+            font-weight: bold;
+            font-family: 'Poppins', sans-serif;
+            text-shadow: 0px 0px 8px rgba(243, 156, 18, 0.8);
+        }
+
+        #locale {
+            color: #f39c12;
+            font-size: 50px;
+            font-family: 'Poppins', sans-serif;
+            text-shadow: 0px 0px 8px rgba(243, 156, 18, 0.8);
+        }
+
+        #one {
+            font-size: 30px;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        /* Footer Styles */
+        footer {
+            background-color: #1a1a1a;
+            color: #ecf0f1;
+            padding: 20px 0;
+            font-size: 14px;
+            font-family: 'Poppins', sans-serif;
+            text-align: center;
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            box-shadow: 0px -4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        footer a {
+            color: #3498db;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        footer a:hover {
+            color: #2980b9;
+            text-decoration: underline;
         }
     </style>
 </head>
 
 <body oncontextmenu='return false;' onkeydown='return false;' onmousedown='return false;'>
-    <center>
-        <div class="blink">
-            <div id="back">
-                <font size="20">
-                    <b>
-                        <span class="one">[+] REST</span><span class="two"> APIs FXC7 [+]</span>
-                    </b>
-                </font>
-            </div>
+
+    <div class="blink">
+        <div id="back">
+            <font size="20">
+                <b>
+                    <span class="back-text">[+] REST</span><span class="back-text"> APIs FXC7 [+]</span>
+                </b>
+            </font>
         </div>
-        
-        <br>
-        <a id="one" href="/docs">Documentasi</a>
-        
-        <script type="text/javascript">
-            var Sayings = "";
-            var now = new Date();
-            var hours = now.getHours();
-            
-            if (hours >= 16 && hours <= 17) {
-                Sayings += "<span class='text-success'>Selamat Berbuka Puasa</span>";
-            } else if (hours >= 18 || hours <= 2) {
-                Sayings += "<span class='text-success'>Selamat malam</span>";
-            } else if (hours >= 3 && hours <= 10) {
-                Sayings += "<span class='text-success'>Selamat pagi</span>";
-            } else if (hours >= 11 && hours <= 14) {
-                Sayings += "<span class='text-success'>Selamat Siang</span>";
-            } else if (hours >= 13 && hours <= 15) {
-                Sayings += "<span class='text-success'>Selamat Sore</span>";
-            }
-            document.getElementById("sayings").innerHTML = Sayings;
+    </div>
+    <br>
 
-            swal('Hai Stah', 'Welcome To My Rest APIs', 'warning');
-            window.setTimeout("waktu()", 1000);
+    <a id="one" href="/docs">Documentasi</a>
 
-            function waktu() {
-                var waktu = new Date();
-                setTimeout("waktu()", 1000);
-                document.getElementById("jam").innerHTML = waktu.getHours();
-                document.getElementById("menit").innerHTML = waktu.getMinutes();
-                document.getElementById("detik").innerHTML = waktu.getSeconds();
-            }
-        </script>
-        
-        <audio autoplay="true" src="https://j.top4top.io/m_1772xeikf9.mp3"></audio>
-        
-        <b><h2 id="one"><marquee width="70%">Jika Menemukan Bug Harap Segera Lapor, Terima Kasih</marquee></h2></b>
-    </center>
+    <script type="text/javascript">
+        var Sayings = "";
+        var now = new Date();
+        var hours = now.getHours();
+
+        if (hours >= 16 && hours <= 17) {
+            Sayings += "<span class='text-success'>Selamat Berbuka Puasa</span>";
+        } else if (hours >= 18 || hours <= 2) {
+            Sayings += "<span class='text-success'>Selamat malam</span>";
+        } else if (hours >= 3 && hours <= 10) {
+            Sayings += "<span class='text-success'>Selamat pagi</span>";
+        } else if (hours >= 11 && hours <= 14) {
+            Sayings += "<span class='text-success'>Selamat Siang</span>";
+        } else if (hours >= 13 && hours <= 15) {
+            Sayings += "<span class='text-success'>Selamat Sore</span>";
+        }
+        document.getElementById("sayings").innerHTML = Sayings;
+
+        swal('Hai Stah', 'Welcome To My Rest APIs', 'warning');
+        window.setTimeout("waktu()", 1000);
+
+        function waktu() {
+            var waktu = new Date();
+            setTimeout("waktu()", 1000);
+            document.getElementById("jam").innerHTML = waktu.getHours();
+            document.getElementById("menit").innerHTML = waktu.getMinutes();
+            document.getElementById("detik").innerHTML = waktu.getSeconds();
+        }
+    </script>
+
+    <audio autoplay="true" src="https://j.top4top.io/m_1772xeikf9.mp3"></audio>
+
+    <b><h2 id="one"><marquee width="70%">Jika Menemukan Bug Harap Segera Lapor, Terima Kasih</marquee></h2></b>
+
+    <!-- Footer Section -->
+    <footer>
+        <p>© 2025 <span style="color: #f39c12;">GlobalTechInfo</span></p>
+        <p><a href="/privacy-policy">Privacy Policy</a> | <a href="/terms-of-service">Terms of Service</a></p>
+    </footer>
+
 </body>
 </html>
