@@ -439,24 +439,20 @@ router.get('/music/spotify', async (req, res, next) => {
 const {
   TikTokStalk,
   TikTokDownload,
-  MediafireDownload,
   YoutubeMP3,
   YoutubeMP4,
   SoundCloudDl,
-  SoundCloudDl2,
   PinterestSearch,
   WallpaperSearch,
   StickerSearch,
-  InstaStalk,
   NpmSearch,
   FacebookDownload,
   TwitterDownload,
-  Instagram
 } = require('./../lib/utils/dylux');  // Import all the functions
 
 
 // TikTok Stalk Route
-router.get('/tiktokstalk', async (req, res) => {
+router.get('/stalk/tiktok', async (req, res) => {
   const Apikey = req.query.apikey;
   const username = req.query.query;
 
@@ -471,41 +467,8 @@ router.get('/tiktokstalk', async (req, res) => {
     res.json({ status: false, message: error });
   }
 });
-// TikTok Stalk Route
-router.get('/instastalk', async (req, res) => {
-  const Apikey = req.query.apikey;
-  const username = req.query.query;
 
-  // Validate API key and query
-  if (!Apikey) return res.json({ status: false, message: '✳️ Enter the API Key' });
-  if (!listkey.includes(Apikey)) return res.json({ status: false, message: '✳️ Invalid API Key' });
-  if (!username) return res.json({ status: false, message: '✳️ Enter the TikTok username' });
-
-  try {
-    await InstaStalk(req, res, [username]);
-  } catch (error) {
-    res.json({ status: false, message: error });
-  }
-});
-
-// YouTube MP3 Route
-router.get('/youtube/mp3', async (req, res) => {
-  const Apikey = req.query.apikey;
-  const url = req.query.url;
-
-  // Validate API key and URL
-  if (!Apikey) return res.json({ status: false, message: '✳️ Enter the API Key' });
-  if (!listkey.includes(Apikey)) return res.json({ status: false, message: '✳️ Invalid API Key' });
-  if (!url) return res.json({ status: false, message: '✳️ Enter the YouTube video URL' });
-
-  try {
-    await YoutubeMP3(req, res, [url]);
-  } catch (error) {
-    res.json({ status: false, message: error });
-  }
-});
-
-// YouTube MP3 Route
+// TikTok2 Dl Route
 router.get('/tiktokdl', async (req, res) => {
   const Apikey = req.query.apikey;
   const url = req.query.url;
@@ -517,40 +480,6 @@ router.get('/tiktokdl', async (req, res) => {
 
   try {
     await TikTokDownload(req, res, [url]);
-  } catch (error) {
-    res.json({ status: false, message: error });
-  }
-});
-
-// YouTube MP4 Route
-router.get('/youtube/mp4', async (req, res) => {
-  const Apikey = req.query.apikey;
-  const url = req.query.url;
-
-  // Validate API key and URL
-  if (!Apikey) return res.json({ status: false, message: '✳️ Enter the API Key' });
-  if (!listkey.includes(Apikey)) return res.json({ status: false, message: '✳️ Invalid API Key' });
-  if (!url) return res.json({ status: false, message: '✳️ Enter the YouTube video URL' });
-
-  try {
-    await YoutubeMP4(req, res, [url]);
-  } catch (error) {
-    res.json({ status: false, message: error });
-  }
-});
-
-// SoundCloud Route
-router.get('/soundcloud2', async (req, res) => {
-  const Apikey = req.query.apikey;
-  const url = req.query.url;
-
-  // Validate API key and URL
-  if (!Apikey) return res.json({ status: false, message: '✳️ Enter the API Key' });
-  if (!listkey.includes(Apikey)) return res.json({ status: false, message: '✳️ Invalid API Key' });
-  if (!url) return res.json({ status: false, message: '✳️ Enter the SoundCloud track URL' });
-
-  try {
-    await SoundCloudDl2(req, res, [url]);
   } catch (error) {
     res.json({ status: false, message: error });
   }
@@ -573,25 +502,8 @@ router.get('/soundcloud', async (req, res) => {
   }
 });
 
-// Tiktok download Route
-router.get('/ttdl2', async (req, res) => {
-  const Apikey = req.query.apikey;
-  const url = req.query.url;
-
-  // Validate API key and URL
-  if (!Apikey) return res.json({ status: false, message: '✳️ Enter the API Key' });
-  if (!listkey.includes(Apikey)) return res.json({ status: false, message: '✳️ Invalid API Key' });
-  if (!url) return res.json({ status: false, message: '✳️ Enter the SoundCloud track URL' });
-
-  try {
-    await MediafireDownload(req, res, [url]);
-  } catch (error) {
-    res.json({ status: false, message: error });
-  }
-});
-
 // Pinterest Search Route
-router.get('/pinterest2', async (req, res) => {
+router.get('/pinterest', async (req, res) => {
   const Apikey = req.query.apikey;
   const query = req.query.query;
 
@@ -608,7 +520,7 @@ router.get('/pinterest2', async (req, res) => {
 });
 
 // Wallpaper Search Route
-router.get('/wallpaper2', async (req, res) => {
+router.get('/wallpaper', async (req, res) => {
   const Apikey = req.query.apikey;
   const query = req.query.query;
 
@@ -659,7 +571,7 @@ router.get('/npm2', async (req, res) => {
 });
 
 // Facebook Download Route
-router.get('/facebookdl', async (req, res) => {
+router.get('/fbvdl', async (req, res) => {
   const Apikey = req.query.apikey;
   const url = req.query.url;
 
@@ -676,7 +588,7 @@ router.get('/facebookdl', async (req, res) => {
 });
 
 // Twitter Download Route
-router.get('/twitterdl', async (req, res) => {
+router.get('/twitter', async (req, res) => {
   const Apikey = req.query.apikey;
   const url = req.query.url;
 
@@ -691,26 +603,6 @@ router.get('/twitterdl', async (req, res) => {
     res.json({ status: false, message: error });
   }
 });
-
-// Instagram Story Route
-router.get('/instagram/story', async (req, res) => {
-  const Apikey = req.query.apikey;
-  const username = req.query.query;
-
-  // Validate API key and query
-  if (!Apikey) return res.json({ status: false, message: '✳️ Enter the API Key' });
-  if (!listkey.includes(Apikey)) return res.json({ status: false, message: '✳️ Invalid API Key' });
-  if (!username) return res.json({ status: false, message: '✳️ Enter the Instagram username' });
-
-  try {
-    await Instagram(req, res, [username]);
-  } catch (error) {
-    res.json({ status: false, message: error });
-  }
-});
-
-
-
 
 router.get('/download/ytmp3', async (req, res, next) => {
   const url = req.query.url;
@@ -913,37 +805,6 @@ router.get('/download/fb', async (req, res, next) => {
   }
 });
 
-// TikTok stalk route
-router.get('/stalk/tiktok', async (req, res, next) => {
-  const Apikey = req.query.apikey;
-  const username = req.query.username;
-
-  if (!Apikey) return res.json(loghandler.notparam);
-  if (!listkey.includes(Apikey)) return res.json(loghandler.invalidKey);
-  if (!username) return res.json(loghandler.notusername);
-
-  try {
-    const user = await fg.ttStalk(username);
-    res.json({
-      status: true,
-      creator: creator,
-      result: {
-        name: user.name,
-        username: user.username,
-        followers: user.followers,
-        following: user.following,
-        desc: user.desc,
-        link: `https://tiktok.com/@${user.username}`,
-      }
-    });
-  } catch (e) {
-    res.json({
-      status: false,
-      creator: creator,
-      message: "Error, username might be invalid"
-    });
-  }
-});
 
 // Instagram Stalking Route
 router.get('/stalk/ig', async (req, res, next) => {
