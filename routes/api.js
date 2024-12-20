@@ -436,22 +436,24 @@ router.get('/music/spotify', async (req, res, next) => {
     res.json(loghandler.invalidKey);
   }
 });
-
 router.get('/llama', async (req, res, next) => {
   const apikey = req.query.apikey;
-  const query = req.query.query;
+  const query = req.query.prompt;
   
   if (!apikey) return res.json(loghandler.notparam);
   if (!query) return res.json(loghandler.notquery);
   
   if (listkey.includes(apikey)) {
     try {
-      const response = await fetch(encodeURI('https://api.gurusensei.workers.dev/llama?prompt=${prompt}'));
+      // Correctly interpolate the 'query' parameter into the URL
+      const response = await fetch(encodeURI(`https://api.gurusensei.workers.dev/llama?prompt=${query}`));
       const hasil = await response.json();
+      
+      // Return the response in JSON format with the 'data' field
       res.json({
         status: true,
         creator: `${creator}`,
-        result: hasil.data
+        result: hasil.data // Assuming 'data' is part of the API response
       });
     } catch (e) {
       res.json(loghandler.error);
@@ -460,6 +462,63 @@ router.get('/llama', async (req, res, next) => {
     res.json(loghandler.invalidKey);
   }
 });
+router.get('/mistral', async (req, res, next) => {
+  const apikey = req.query.apikey;
+  const text = req.query.text;
+  
+  if (!apikey) return res.json(loghandler.notparam);
+  if (!text) return res.json(loghandler.notquery);
+  
+  if (listkey.includes(apikey)) {
+    try {
+      // Send 'text' parameter in the API request
+      const response = await fetch(encodeURI(`https://api.gurusensei.workers.dev/mistral?text=${text}`));
+      const hasil = await response.json();
+      
+      // Return the response in JSON format
+      res.json({
+        status: true,
+        creator: `${creator}`,
+        result: hasil.data // Assuming 'data' is part of the API response
+      });
+    } catch (e) {
+      res.json(loghandler.error);
+    }
+  } else {
+    res.json(loghandler.invalidKey);
+  }
+});
+router.get('/dream', async (req, res, next) => {
+  const apikey = req.query.apikey;
+  const prompt = req.query.prompt;
+  
+  if (!apikey) return res.json(loghandler.notparam);
+  if (!prompt) return res.json(loghandler.notquery);
+  
+  if (listkey.includes(apikey)) {
+    try {
+      // Send 'prompt' parameter in the API request
+      const response = await fetch(encodeURI(`https://api.gurusensei.workers.dev/dream?prompt=${prompt}`));
+      const buffer = await response.buffer();
+      
+      // Save the PNG file or directly send the image URL
+      // Example: Send the image as a URL if it is hosted somewhere
+      const imageUrl = `https://yourimagehosting.com/${Date.now()}.png`; // Adjust based on your actual image hosting mechanism
+      
+      // Return JSON with image URL (or path if saved locally)
+      res.json({
+        status: true,
+        creator: `${creator}`,
+        result: imageUrl // Assuming you either save or host the image and return its URL
+      });
+    } catch (e) {
+      res.json(loghandler.error);
+    }
+  } else {
+    res.json(loghandler.invalidKey);
+  }
+});
+
 const {
   TikTokStalk,
   TikTokDownload,
