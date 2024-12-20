@@ -532,7 +532,7 @@ router.get('/ttdl2', async (req, res) => {
   if (!url) return res.json({ status: false, message: '✳️ Enter the SoundCloud track URL' });
 
   try {
-    await TikTokDownload(req, res, [url]);
+    await TikTokDownload2(req, res, [url]);
   } catch (error) {
     res.json({ status: false, message: error });
   }
