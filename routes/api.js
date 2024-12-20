@@ -7,7 +7,6 @@ const cors = require('cors');
 const fetch = require('node-fetch');
 const cheerio = require('cheerio');
 const request = require('request');
-const zrapi = require('zrapi');
 const fs = require('fs-extra');
 const fg = require('api-dylux');
 const { EmojiAPI } = require('emoji-api');
@@ -32,6 +31,7 @@ const {
 } = require("./../lib/utils/photooxy");
 
 var router  = express.Router();
+const emoji = new EmojiAPI();
 
 var { igStalk, igDownload } = require("./../lib/utils/ig");
 var { ytDonlodMp3, ytDonlodMp4, ytPlayMp3, ytPlayMp4, ytSearch } = require("./../lib/utils/yt");
