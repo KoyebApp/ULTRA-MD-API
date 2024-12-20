@@ -485,7 +485,7 @@ router.get('/mistral', async (req, res, next) => {
 
     // Check if the expected 'data' field exists in the API response
     if (data.data) {
-      let result = data.response.response  // Extract the result from the response
+      let result = data.data  // Extract the result from the response
 
       // Return the result as a JSON response
       res.json({
