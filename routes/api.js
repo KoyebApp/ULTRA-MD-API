@@ -471,7 +471,7 @@ router.get('/stalk/tiktoks', async (req, res, next) => {
         followers: user.followers,
         following: user.following,
         desc: user.desc,
-        link: `https://tiktok.com/@${user.username}`,
+        link: `https://tiktok.com/${user.username}`,
       }
     });
   } catch (e) {
@@ -730,31 +730,6 @@ router.get('/download/tiktok', async (req, res, next) => {
   }
 });
 
-// Instagram download route
-router.get('/download/ig', async (req, res, next) => {
-  const url = req.query.url;
-  const apikey = req.query.apikey;
-
-  if (!url) return res.json(loghandler.noturl);
-  if (!apikey) return res.json(loghandler.notparam);
-  if (!listkey.includes(apikey)) return res.json(loghandler.invalidKey);
-
-  try {
-    const data = await igDownload(url);
-    res.json({
-      status: true,
-      code: 200,
-      creator: `${creator}`,
-      id: data.id,
-      shortCode: data.shortCode,
-      caption: data.caption,
-      result: data.url
-    });
-  } catch (err) {
-    res.json(loghandler.error);
-  }
-});
-
 // Facebook download route
 
 router.get('/download/fb', async (req, res, next) => {
@@ -848,28 +823,6 @@ router.get('/stalk/npm', async (req, res, next) => {
       
       res.json({
         status: true,
-        creator: `${creator}`,
-        result: data
-      });
-    } catch (e) {
-      res.json(loghandler.error);
-    }
-  } else {
-    res.json(loghandler.invalidKey);
-  }
-});
-
-// Random Quotes Route
-router.get('/random/quotes', async (req, res, next) => {
-  const Apikey = req.query.apikey;
-
-  if (!Apikey) return res.json(loghandler.notparam);
-
-  if (listkey.includes(Apikey)) {
-    try {
-      const response = await fetch(encodeURI('https://python-api-zhirrr.herokuapp.com/api/random/quotes'));
-      const data = await response.json();
-      res.json({
         creator: `${creator}`,
         result: data
       });
@@ -1049,7 +1002,7 @@ router.get('/tools/wpuser', async (req, res, next) => {
 });
 
 // Weather Information (Cuaca)
-router.get('/info/cuaca', async (req, res, next) => {
+router.get('/info/weather', async (req, res, next) => {
   const apikey = req.query.apikey;
   const kota = req.query.kota;
 
@@ -1070,7 +1023,7 @@ router.get('/info/cuaca', async (req, res, next) => {
 });
 
 // Earthquake Information (Gempa)
-router.get('/info/gempa', async (req, res, next) => {
+router.get('/info/earthquake', async (req, res, next) => {
   const apikey = req.query.apikey;
 
   if (!apikey) return res.json(loghandler.notparam);
@@ -1078,28 +1031,6 @@ router.get('/info/gempa', async (req, res, next) => {
   if (listkey.includes(apikey)) {
     try {
       const result = await Gempa();
-      res.json({
-        creator: creator,
-        result
-      });
-    } catch (e) {
-      console.log('Error:', color(e, 'red'));
-      res.json(loghandler.error);
-    }
-  } else {
-    res.json(loghandler.invalidKey);
-  }
-});
-
-// Story of the Prophets
-router.get('/muslim/kisahnabi', async (req, res, next) => {
-  const nabi = req.query.nabi;
-  const apikey = req.query.apikey;
-
-  if (!apikey) return res.json(loghandler.notparam);
-  if (listkey.includes(apikey)) {
-    try {
-      const result = await Searchnabi(nabi);
       res.json({
         creator: creator,
         result
@@ -1373,7 +1304,7 @@ router.get('/muslim/niatmaghrib', async (req, res) => {
 });
 
 // Niat Isya
-router.get('/muslim/niatisya', async (req, res) => {
+router.get('/muslim/niatisha', async (req, res) => {
   const Apikey = req.query.apikey;
 
   if (!Apikey) return res.json(loghandler.notparam);
@@ -1409,29 +1340,6 @@ router.get('/muslim/niatashar', async (req, res) => {
     res.json(loghandler.invalidKey);
   }
 });
-
-// Jadwal Shalat Route
-router.get('/muslim/jadwalshalat', async (req, res) => {
-  const Apikey = req.query.apikey;
-  const kota = req.query.kota;
-
-  if (!Apikey) return res.json(loghandler.notparam);
-  if (listkey.includes(Apikey)) {
-    if (!kota) return res.json({ status: false, creator: `${creator}`, message: "masukan parameter kota" });
-
-    try {
-      const response = await fetch(encodeURI(`https://raw.githubusercontent.com/GlobalTechInfo/Qasim-Database/main/adzan/${kota}/2021/03.json`));
-      const data = await response.json();
-      res.json({ result: data });
-    } catch (e) {
-      console.log('Error:', color(e, 'red'));
-      res.json(loghandler.error);
-    }
-  } else {
-    res.json(loghandler.invalidKey);
-  }
-});
-
 
 // Search Image Route
 router.get('/image/messi', async (req, res) => {
@@ -1659,7 +1567,7 @@ router.get('/wallpaper/pegunungan', async (req, res) => {
 });
 
 // Route to get lyrics of a song
-router.get('/music/liriklagu', async (req, res) => {
+router.get('/music/lyrics', async (req, res) => {
     const Apikey = req.query.apikey;
     const lagu = req.query.query;
 
@@ -1677,30 +1585,6 @@ router.get('/music/liriklagu', async (req, res) => {
         });
     } catch (e) {
         console.error('Error fetching lyrics:', e);
-        res.json(loghandler.error);
-    }
-});
-
-// Route to get KBBI (Indonesian Dictionary) information
-router.get('/info/kbbi', async (req, res) => {
-    const Apikey = req.query.apikey;
-    const kata = req.query.kata;
-
-    if (!Apikey) return res.json(loghandler.notparam);
-    if (!listkey.includes(Apikey)) return res.json(loghandler.invalidKey);
-    if (!kata) return res.json({ status: false, creator: `${creator}`, message: "Masukkan parameter kata" });
-
-    try {
-        const response = await fetch(encodeURI(`https://kbbi-api-zhirrr.vercel.app/api/kbbi?text=${kata}`));
-        const data = await response.json();
-        res.json({
-            status: true,
-            code: 200,
-            creator: `${creator}`,
-            result: data
-        });
-    } catch (e) {
-        console.error('Error fetching KBBI data:', e);
         res.json(loghandler.error);
     }
 });
@@ -1727,33 +1611,8 @@ router.get('/info/covidworld', async (req, res) => {
     }
 });
 
-
-// Route to get postal code (kodepos) for a city
-router.get('/info/kodepos', async (req, res) => {
-    const Apikey = req.query.apikey;
-    const kota = req.query.kota;
-
-    if (!Apikey) return res.json(loghandler.notparam);
-    if (!listkey.includes(Apikey)) return res.json(loghandler.invalidKey);
-    if (!kota) return res.json({ status: false, creator: `${creator}`, message: "Masukkan parameter kota" });
-
-    try {
-        const response = await fetch(encodeURI(`https://kodepos-api-zhirrr.vercel.app/?q=${kota}`));
-        const data = await response.json();
-        res.json({
-            status: true,
-            code: 200,
-            creator: `${creator}`,
-            result: data
-        });
-    } catch (e) {
-        console.error('Error fetching postal code data:', e);
-        res.json(loghandler.error);
-    }
-});
-
 // Route to search Kusonime anime
-router.get('/anime/random-akira', async (req, res) => {
+router.get('/anime/akira', async (req, res) => {
     const Apikey = req.query.apikey;
 
     // Check if API key is provided
@@ -1782,7 +1641,7 @@ router.get('/anime/random-akira', async (req, res) => {
     }
 });
 
-router.get('/anime/random-akiyama', async (req, res) => {
+router.get('/anime/akiyama', async (req, res) => {
     const Apikey = req.query.apikey;
 
     // Check if API key is provided
@@ -1811,7 +1670,7 @@ router.get('/anime/random-akiyama', async (req, res) => {
     }
 });
 
-router.get('/anime/random-anna', async (req, res) => {
+router.get('/anime/anna', async (req, res) => {
     const Apikey = req.query.apikey;
 
     // Check if API key is provided
@@ -1840,7 +1699,7 @@ router.get('/anime/random-anna', async (req, res) => {
     }
 });
 
-router.get('/anime/random-cosplay', async (req, res) => {
+router.get('/anime/cosplay', async (req, res) => {
     const Apikey = req.query.apikey;
 
     // Check if API key is provided
@@ -1869,7 +1728,7 @@ router.get('/anime/random-cosplay', async (req, res) => {
     }
 });
 
-router.get('/anime/random-eba', async (req, res) => {
+router.get('/anime/eba', async (req, res) => {
     const Apikey = req.query.apikey;
 
     // Check if API key is provided
@@ -1898,7 +1757,7 @@ router.get('/anime/random-eba', async (req, res) => {
     }
 });
 
-router.get('/anime/random-elaina', async (req, res) => {
+router.get('/anime/elaina', async (req, res) => {
     const Apikey = req.query.apikey;
 
     // Check if API key is provided
@@ -1927,7 +1786,7 @@ router.get('/anime/random-elaina', async (req, res) => {
     }
 });
 
-router.get('/anime/random-erza', async (req, res) => {
+router.get('/anime/erza', async (req, res) => {
     const Apikey = req.query.apikey;
 
     // Check if API key is provided
@@ -1956,7 +1815,7 @@ router.get('/anime/random-erza', async (req, res) => {
     }
 });
 
-router.get('/anime/random-emilia', async (req, res) => {
+router.get('/anime/emilia', async (req, res) => {
     const Apikey = req.query.apikey;
 
     // Check if API key is provided
@@ -1985,7 +1844,7 @@ router.get('/anime/random-emilia', async (req, res) => {
     }
 });
 
-router.get('/anime/random-chiho', async (req, res) => {
+router.get('/anime/chiho', async (req, res) => {
     const Apikey = req.query.apikey;
 
     // Check if API key is provided
@@ -2014,7 +1873,7 @@ router.get('/anime/random-chiho', async (req, res) => {
     }
 });
 
-router.get('/anime/random-itachi', async (req, res) => {
+router.get('/anime/itachi', async (req, res) => {
     const Apikey = req.query.apikey;
 
     // Check if API key is provided
@@ -2043,7 +1902,7 @@ router.get('/anime/random-itachi', async (req, res) => {
     }
 });
 
-router.get('/anime/random-miku', async (req, res) => {
+router.get('/anime/miku', async (req, res) => {
     const Apikey = req.query.apikey;
 
     // Check if API key is provided
@@ -2072,7 +1931,7 @@ router.get('/anime/random-miku', async (req, res) => {
     }
 });
 
-router.get('/anime/random-nezuko', async (req, res) => {
+router.get('/anime/nezuko', async (req, res) => {
     const Apikey = req.query.apikey;
 
     // Check if API key is provided
@@ -2130,7 +1989,7 @@ router.get('/anime/hentai', async (req, res) => {
     }
 });
 
-router.get('/anime/random-sagiri', async (req, res) => {
+router.get('/anime/sagiri', async (req, res) => {
     const Apikey = req.query.apikey;
 
     // Check if API key is provided
@@ -2159,7 +2018,7 @@ router.get('/anime/random-sagiri', async (req, res) => {
     }
 });
 
-router.get('/anime/random-mikasa', async (req, res) => {
+router.get('/anime/mikasa', async (req, res) => {
     const Apikey = req.query.apikey;
 
     // Check if API key is provided
@@ -2188,7 +2047,7 @@ router.get('/anime/random-mikasa', async (req, res) => {
     }
 });
 
-router.get('/anime/random-sasuke', async (req, res) => {
+router.get('/anime/sasuke', async (req, res) => {
     const Apikey = req.query.apikey;
 
     // Check if API key is provided
@@ -2219,7 +2078,7 @@ router.get('/anime/random-sasuke', async (req, res) => {
 
 
 // Route to get Tebak Gambar quiz questions
-router.get('/kuis/tebakGambar', async (req, res) => {
+router.get('/kuis/quiz', async (req, res) => {
     const apikey = req.query.apikey;
 
     if (!apikey) return res.json(loghandler.notparam);
@@ -2979,7 +2838,7 @@ router.get('/web2plain-text', async (req, res, next) => {
 });
 
 // Route to check if an API key is active
-router.get('/cekapikey', async (req, res, next) => {
+router.get('/checkapikey', async (req, res, next) => {
   const apikey = req.query.apikey;
 
   // Validate if API key is provided
