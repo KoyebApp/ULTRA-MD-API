@@ -280,7 +280,7 @@ router.get('/image/wikimedia', async (req, res) => {
   if (listkey.includes(apikey)) {
     try {
       const images = await wikimedia(title);
-      res.json({ status: true, result: images });
+      res.json({ status: true, creator: 'Qasim Ali', result: images });
     } catch (error) {
       console.error('Error fetching Wikimedia images:', error);
       res.json(loghandler.error);
@@ -299,7 +299,7 @@ router.get('/quotes/anime', async (req, res) => {
   if (listkey.includes(apikey)) {
     try {
       const quotes = await quotesAnime();
-      res.json({ status: true, result: quotes });
+      res.json({ status: true, creator: 'Qasim Ali', result: quotes });
     } catch (error) {
       console.error('Error fetching anime quotes:', error);
       res.json(loghandler.error);
@@ -320,7 +320,7 @@ router.get('/happymod', async (req, res) => {
   if (listkey.includes(apikey)) {
     try {
       const mods = await happymod(query);
-      res.json({ status: true, result: mods });
+      res.json({ status: true, creator: 'Qasim Ali', result: mods });
     } catch (error) {
       console.error('Error fetching HappyMod APKs:', error);
       res.json(loghandler.error);
@@ -341,7 +341,7 @@ router.get('/media/umma', async (req, res) => {
   if (listkey.includes(apikey)) {
     try {
       const media = await umma(url);
-      res.json({ status: true, result: media });
+      res.json({ status: true, creator: 'Qasim Ali', result: media });
     } catch (error) {
       console.error('Error fetching media from Umma:', error);
       res.json(loghandler.error);
@@ -362,7 +362,7 @@ router.get('/audio/ringtone', async (req, res) => {
   if (listkey.includes(apikey)) {
     try {
       const ringtones = await ringtone(title);
-      res.json({ status: true, result: ringtones });
+      res.json({ status: true, creator: 'Qasim Ali', result: ringtones });
     } catch (error) {
       console.error('Error fetching ringtones:', error);
       res.json(loghandler.error);
@@ -383,7 +383,7 @@ router.get('/text/style', async (req, res) => {
   if (listkey.includes(apikey)) {
     try {
       const styledText = await styletext(teks);
-      res.json({ status: true, result: styledText });
+      res.json({ status: true, creator: 'Qasim Ali', result: styledText });
     } catch (error) {
       console.error('Error styling text:', error);
       res.json(loghandler.error);
