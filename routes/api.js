@@ -436,6 +436,30 @@ router.get('/music/spotify', async (req, res, next) => {
     res.json(loghandler.invalidKey);
   }
 });
+
+router.get('/llama', async (req, res, next) => {
+  const apikey = req.query.apikey;
+  const query = req.query.query;
+  
+  if (!apikey) return res.json(loghandler.notparam);
+  if (!query) return res.json(loghandler.notquery);
+  
+  if (listkey.includes(apikey)) {
+    try {
+      const response = await fetch(encodeURI('https://api.gurusensei.workers.dev/llama?prompt=${prompt}'));
+      const hasil = await response.json();
+      res.json({
+        status: true,
+        creator: `${creator}`,
+        result: hasil.data
+      });
+    } catch (e) {
+      res.json(loghandler.error);
+    }
+  } else {
+    res.json(loghandler.invalidKey);
+  }
+});
 const {
   TikTokStalk,
   TikTokDownload,
