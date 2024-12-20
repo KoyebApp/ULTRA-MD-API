@@ -451,7 +451,7 @@ const {
 } = require('./../lib/utils/dylux');  // Import all the functions
 
 // TikTok stalk route
-router.get('/stalk/tiktoks', async (req, res, next) => {
+router.get('/stalk/tiktok', async (req, res, next) => {
   const Apikey = req.query.apikey;
   const username = req.query.username;
 
