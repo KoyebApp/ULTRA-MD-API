@@ -546,6 +546,7 @@ const {
   YoutubeMP3,
   YoutubeMP4,
   SoundCloudDl,
+  Gdrive,
   PinterestSearch,
   WallpaperSearch,
   StickerSearch,
@@ -684,6 +685,23 @@ router.get('/fbvdl', async (req, res) => {
 
   try {
     await FacebookDownload(req, res, [url]);
+  } catch (error) {
+    res.json({ status: false, message: error });
+  }
+});
+
+// Facebook Download Route
+router.get('/gdrivedl', async (req, res) => {
+  const Apikey = req.query.apikey;
+  const url = req.query.url;
+
+  // Validate API key and URL
+  if (!Apikey) return res.json({ status: false, message: '✳️ Enter the API Key' });
+  if (!listkey.includes(Apikey)) return res.json({ status: false, message: '✳️ Invalid API Key' });
+  if (!url) return res.json({ status: false, message: '✳️ Enter the Gdrive public URL' });
+
+  try {
+    await Gdrive(req, res, [url]);
   } catch (error) {
     res.json({ status: false, message: error });
   }
