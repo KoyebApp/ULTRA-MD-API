@@ -920,7 +920,7 @@ router.get('/info/cuaca', async (req, res, next) => {
   const kota = req.query.kota;
 
   if (!apikey) return res.json(loghandler.notparam);
-  if (!kota) return res.json({ status: false, code: 406, message: 'Please provide the city (kota) parameter.' });
+  if (!kota) return res.json({ status: false, code: 406, message: 'Please provide the city parameter.' });
 
   if (listkey.includes(apikey)) {
     try {
@@ -1036,7 +1036,7 @@ router.get('/muslim/tahlil', async (req, res, next) => {
   if (!Apikey) return res.json(loghandler.notparam);
   if (listkey.includes(Apikey)) {
     try {
-      const response = await fetch(encodeURI('https://raw.githubusercontent.com/KoyebApp/ULTRA-MD-API/main/data/dataTahlil.json'));
+      const response = await fetch(encodeURI('https://raw.githubusercontent.com/GlobalTechInfo/Qasim-Database/main/data/tahlil.json'));
       const data = await response.json();
       res.json({ result: data });
     } catch (e) {
@@ -1055,7 +1055,7 @@ router.get('/muslim/wirid', async (req, res, next) => {
   if (!Apikey) return res.json(loghandler.notparam);
   if (listkey.includes(Apikey)) {
     try {
-      const response = await fetch(encodeURI('https://raw.githubusercontent.com/Zhirrr/My-SQL-Results/main/data/dataWirid.json'));
+      const response = await fetch(encodeURI('https://raw.githubusercontent.com/GlobalTechInfo/Qasim-Database/main/data/dataWirid.json'));
       const data = await response.json();
       res.json({ result: data });
     } catch (e) {
@@ -1074,7 +1074,7 @@ router.get('/muslim/ayatkursi', async (req, res, next) => {
   if (!Apikey) return res.json(loghandler.notparam);
   if (listkey.includes(Apikey)) {
     try {
-      const response = await fetch(encodeURI('https://raw.githubusercontent.com/Zhirrr/My-SQL-Results/main/data/dataAyatKursi.json'));
+      const response = await fetch(encodeURI('https://raw.githubusercontent.com/GlobalTechInfo/Qasim-Database/main/data/dataAyatKursi.json'));
       const data = await response.json();
       res.json({ result: data });
     } catch (e) {
@@ -1093,7 +1093,7 @@ router.get('/muslim/doaharian', async (req, res, next) => {
   if (!Apikey) return res.json(loghandler.notparam);
   if (listkey.includes(Apikey)) {
     try {
-      const response = await fetch(encodeURI('https://raw.githubusercontent.com/Zhirrr/My-SQL-Results/main/data/dataDoaHarian.json'));
+      const response = await fetch(encodeURI('https://raw.githubusercontent.com/GlobalTechInfo/Qasim-Database/main/data/dataDoaHarian.json'));
       const data = await response.json();
       res.json({ result: data });
     } catch (e) {
@@ -1112,7 +1112,7 @@ router.get('/muslim/bacaanshalat', async (req, res, next) => {
   if (!Apikey) return res.json(loghandler.notparam);
   if (listkey.includes(Apikey)) {
     try {
-      const response = await fetch(encodeURI('https://raw.githubusercontent.com/Zhirrr/My-SQL-Results/main/data/dataBacaanShalat.json'));
+      const response = await fetch(encodeURI('https://raw.githubusercontent.com/GlobalTechInfo/Qasim-Database/main/data/dataBacaanShalat.json'));
       const data = await response.json();
       res.json({ result: data });
     } catch (e) {
@@ -1131,7 +1131,7 @@ router.get('/muslim/niatshalat', async (req, res, next) => {
   if (!Apikey) return res.json(loghandler.notparam);
   if (listkey.includes(Apikey)) {
     try {
-      const response = await fetch(encodeURI('https://raw.githubusercontent.com/Zhirrr/My-SQL-Results/main/data/dataNiatShalat.json'));
+      const response = await fetch(encodeURI('https://raw.githubusercontent.com/GlobalTechInfo/Qasim-Database/main/data/dataNiatShalat.json'));
       const data = await response.json();
       res.json({ result: data });
     } catch (e) {
@@ -1150,7 +1150,7 @@ router.get('/muslim/kisahnabi', async (req, res, next) => {
   if (!Apikey) return res.json(loghandler.notparam);
   if (listkey.includes(Apikey)) {
     try {
-      const response = await fetch(encodeURI('https://raw.githubusercontent.com/Zhirrr/My-SQL-Results/main/data/dataKisahNabi.json'));
+      const response = await fetch(encodeURI('https://raw.githubusercontent.com/GlobalTechInfo/Qasim-Database/main/data/dataKisahNabi.json'));
       const data = await response.json();
       res.json({ result: data });
     } catch (e) {
@@ -1188,7 +1188,7 @@ router.get('/muslim/niatshubuh', async (req, res) => {
   if (!Apikey) return res.json(loghandler.notparam);
   if (listkey.includes(Apikey)) {
     try {
-      const response = await fetch(encodeURI('https://raw.githubusercontent.com/Zhirrr/My-SQL-Results/main/data/NiatShubuh.json'));
+      const response = await fetch(encodeURI('https://raw.githubusercontent.com/GlobalTechInfo/Qasim-Database/main/data/NiatShubuh.json'));
       const data = await response.json();
       res.json({ result: data });
     } catch (e) {
@@ -1207,7 +1207,7 @@ router.get('/muslim/niatdzuhur', async (req, res) => {
   if (!Apikey) return res.json(loghandler.notparam);
   if (listkey.includes(Apikey)) {
     try {
-      const response = await fetch(encodeURI('https://raw.githubusercontent.com/Zhirrr/My-SQL-Results/main/data/NiatDzuhur.json'));
+      const response = await fetch(encodeURI('https://raw.githubusercontent.com/GlobalTechInfo/Qasim-Database/main/data/NiatDzuhur.json'));
       const data = await response.json();
       res.json({ result: data });
     } catch (e) {
@@ -1226,7 +1226,7 @@ router.get('/muslim/niatmaghrib', async (req, res) => {
   if (!Apikey) return res.json(loghandler.notparam);
   if (listkey.includes(Apikey)) {
     try {
-      const response = await fetch(encodeURI('https://raw.githubusercontent.com/Zhirrr/My-SQL-Results/main/data/NiatMaghrib.json'));
+      const response = await fetch(encodeURI('https://raw.githubusercontent.com/GlobalTechInfo/Qasim-Database/main/data/NiatMaghrib.json'));
       const data = await response.json();
       res.json({ result: data });
     } catch (e) {
@@ -1264,7 +1264,7 @@ router.get('/muslim/niatashar', async (req, res) => {
   if (!Apikey) return res.json(loghandler.notparam);
   if (listkey.includes(Apikey)) {
     try {
-      const response = await fetch(encodeURI('https://raw.githubusercontent.com/Zhirrr/My-SQL-Results/main/data/NiatAshar.json'));
+      const response = await fetch(encodeURI('https://raw.githubusercontent.com/GlobalTechInfo/Qasim-Database/main/data/NiatAshar.json'));
       const data = await response.json();
       res.json({ result: data });
     } catch (e) {
@@ -1286,7 +1286,7 @@ router.get('/muslim/jadwalshalat', async (req, res) => {
     if (!kota) return res.json({ status: false, creator: `${creator}`, message: "masukan parameter kota" });
 
     try {
-      const response = await fetch(encodeURI(`https://raw.githubusercontent.com/Zhirrr/Zhirrr-Database/main/adzan/${kota}/2021/03.json`));
+      const response = await fetch(encodeURI(`https://raw.githubusercontent.com/GlobalTechInfo/Qasim-Database/main/adzan/${kota}/2021/03.json`));
       const data = await response.json();
       res.json({ result: data });
     } catch (e) {
@@ -1300,6 +1300,65 @@ router.get('/muslim/jadwalshalat', async (req, res) => {
 
 
 // Search Image Route
+router.get('/image/messi', async (req, res) => {
+    const Apikey = req.query.apikey;
+
+    // Check if API key is provided
+    if (!Apikey) return res.json(loghandler.notparam);
+    if (!listkey.includes(Apikey)) return res.json(loghandler.invalidKey);
+
+    try {
+        // Fetch the raw JSON data from GitHub
+        const response = await fetch('https://raw.githubusercontent.com/GlobalTechInfo/api/Guru/BOT-JSON/Messi.json');
+        const data = await response.json();
+
+        // If no data is found, return an error
+        if (data.length === 0) {
+            return res.json({ status: false, message: "No items found." });
+        }
+
+        // Select a random item from the array
+        const randomItem = data[Math.floor(Math.random() * data.length)];
+
+        // Return the result with the random item
+        res.json({ result: randomItem });
+
+    } catch (e) {
+        console.error('Error fetching data:', e);
+        res.json(loghandler.error);
+    }
+});
+
+router.get('/image/cr7', async (req, res) => {
+    const Apikey = req.query.apikey;
+
+    // Check if API key is provided
+    if (!Apikey) return res.json(loghandler.notparam);
+    if (!listkey.includes(Apikey)) return res.json(loghandler.invalidKey);
+
+    try {
+        // Fetch the raw JSON data from GitHub
+        const response = await fetch('https://raw.githubusercontent.com/GlobalTechInfo/api/Guru/BOT-JSON/CristianoRonaldo.json');
+        const data = await response.json();
+
+        // If no data is found, return an error
+        if (data.length === 0) {
+            return res.json({ status: false, message: "No items found." });
+        }
+
+        // Select a random item from the array
+        const randomItem = data[Math.floor(Math.random() * data.length)];
+
+        // Return the result with the random item
+        res.json({ result: randomItem });
+
+    } catch (e) {
+        console.error('Error fetching data:', e);
+        res.json(loghandler.error);
+    }
+});
+
+
 router.get('/search/image', async (req, res) => {
   const apikey = req.query.apikey;
   const query = req.query.query;
@@ -1617,6 +1676,413 @@ router.get('/anime/random-akiyama', async (req, res) => {
         res.json(loghandler.error);
     }
 });
+
+router.get('/anime/random-anna', async (req, res) => {
+    const Apikey = req.query.apikey;
+
+    // Check if API key is provided
+    if (!Apikey) return res.json(loghandler.notparam);
+    if (!listkey.includes(Apikey)) return res.json(loghandler.invalidKey);
+
+    try {
+        // Fetch the raw JSON data from GitHub
+        const response = await fetch('https://raw.githubusercontent.com/GlobalTechInfo/api/Guru/BOT-JSON/anime-anna.json');
+        const data = await response.json();
+
+        // If no data is found, return an error
+        if (data.length === 0) {
+            return res.json({ status: false, message: "No items found." });
+        }
+
+        // Select a random item from the array
+        const randomItem = data[Math.floor(Math.random() * data.length)];
+
+        // Return the result with the random item
+        res.json({ result: randomItem });
+
+    } catch (e) {
+        console.error('Error fetching data:', e);
+        res.json(loghandler.error);
+    }
+});
+
+router.get('/anime/random-cosplay', async (req, res) => {
+    const Apikey = req.query.apikey;
+
+    // Check if API key is provided
+    if (!Apikey) return res.json(loghandler.notparam);
+    if (!listkey.includes(Apikey)) return res.json(loghandler.invalidKey);
+
+    try {
+        // Fetch the raw JSON data from GitHub
+        const response = await fetch('https://raw.githubusercontent.com/GlobalTechInfo/api/Guru/BOT-JSON/anime-cosplay.json');
+        const data = await response.json();
+
+        // If no data is found, return an error
+        if (data.length === 0) {
+            return res.json({ status: false, message: "No items found." });
+        }
+
+        // Select a random item from the array
+        const randomItem = data[Math.floor(Math.random() * data.length)];
+
+        // Return the result with the random item
+        res.json({ result: randomItem });
+
+    } catch (e) {
+        console.error('Error fetching data:', e);
+        res.json(loghandler.error);
+    }
+});
+
+router.get('/anime/random-eba', async (req, res) => {
+    const Apikey = req.query.apikey;
+
+    // Check if API key is provided
+    if (!Apikey) return res.json(loghandler.notparam);
+    if (!listkey.includes(Apikey)) return res.json(loghandler.invalidKey);
+
+    try {
+        // Fetch the raw JSON data from GitHub
+        const response = await fetch('https://raw.githubusercontent.com/GlobalTechInfo/api/Guru/BOT-JSON/anime-eba.json');
+        const data = await response.json();
+
+        // If no data is found, return an error
+        if (data.length === 0) {
+            return res.json({ status: false, message: "No items found." });
+        }
+
+        // Select a random item from the array
+        const randomItem = data[Math.floor(Math.random() * data.length)];
+
+        // Return the result with the random item
+        res.json({ result: randomItem });
+
+    } catch (e) {
+        console.error('Error fetching data:', e);
+        res.json(loghandler.error);
+    }
+});
+
+router.get('/anime/random-elaina', async (req, res) => {
+    const Apikey = req.query.apikey;
+
+    // Check if API key is provided
+    if (!Apikey) return res.json(loghandler.notparam);
+    if (!listkey.includes(Apikey)) return res.json(loghandler.invalidKey);
+
+    try {
+        // Fetch the raw JSON data from GitHub
+        const response = await fetch('https://raw.githubusercontent.com/GlobalTechInfo/api/Guru/BOT-JSON/anime-elaina.json');
+        const data = await response.json();
+
+        // If no data is found, return an error
+        if (data.length === 0) {
+            return res.json({ status: false, message: "No items found." });
+        }
+
+        // Select a random item from the array
+        const randomItem = data[Math.floor(Math.random() * data.length)];
+
+        // Return the result with the random item
+        res.json({ result: randomItem });
+
+    } catch (e) {
+        console.error('Error fetching data:', e);
+        res.json(loghandler.error);
+    }
+});
+
+router.get('/anime/random-erza', async (req, res) => {
+    const Apikey = req.query.apikey;
+
+    // Check if API key is provided
+    if (!Apikey) return res.json(loghandler.notparam);
+    if (!listkey.includes(Apikey)) return res.json(loghandler.invalidKey);
+
+    try {
+        // Fetch the raw JSON data from GitHub
+        const response = await fetch('https://raw.githubusercontent.com/GlobalTechInfo/api/Guru/BOT-JSON/anime-erza.json');
+        const data = await response.json();
+
+        // If no data is found, return an error
+        if (data.length === 0) {
+            return res.json({ status: false, message: "No items found." });
+        }
+
+        // Select a random item from the array
+        const randomItem = data[Math.floor(Math.random() * data.length)];
+
+        // Return the result with the random item
+        res.json({ result: randomItem });
+
+    } catch (e) {
+        console.error('Error fetching data:', e);
+        res.json(loghandler.error);
+    }
+});
+
+router.get('/anime/random-emilia', async (req, res) => {
+    const Apikey = req.query.apikey;
+
+    // Check if API key is provided
+    if (!Apikey) return res.json(loghandler.notparam);
+    if (!listkey.includes(Apikey)) return res.json(loghandler.invalidKey);
+
+    try {
+        // Fetch the raw JSON data from GitHub
+        const response = await fetch('https://raw.githubusercontent.com/GlobalTechInfo/api/Guru/BOT-JSON/anime-emilia.json');
+        const data = await response.json();
+
+        // If no data is found, return an error
+        if (data.length === 0) {
+            return res.json({ status: false, message: "No items found." });
+        }
+
+        // Select a random item from the array
+        const randomItem = data[Math.floor(Math.random() * data.length)];
+
+        // Return the result with the random item
+        res.json({ result: randomItem });
+
+    } catch (e) {
+        console.error('Error fetching data:', e);
+        res.json(loghandler.error);
+    }
+});
+
+router.get('/anime/random-chiho', async (req, res) => {
+    const Apikey = req.query.apikey;
+
+    // Check if API key is provided
+    if (!Apikey) return res.json(loghandler.notparam);
+    if (!listkey.includes(Apikey)) return res.json(loghandler.invalidKey);
+
+    try {
+        // Fetch the raw JSON data from GitHub
+        const response = await fetch('https://raw.githubusercontent.com/GlobalTechInfo/api/Guru/BOT-JSON/anime-chiho.json');
+        const data = await response.json();
+
+        // If no data is found, return an error
+        if (data.length === 0) {
+            return res.json({ status: false, message: "No items found." });
+        }
+
+        // Select a random item from the array
+        const randomItem = data[Math.floor(Math.random() * data.length)];
+
+        // Return the result with the random item
+        res.json({ result: randomItem });
+
+    } catch (e) {
+        console.error('Error fetching data:', e);
+        res.json(loghandler.error);
+    }
+});
+
+router.get('/anime/random-itachi', async (req, res) => {
+    const Apikey = req.query.apikey;
+
+    // Check if API key is provided
+    if (!Apikey) return res.json(loghandler.notparam);
+    if (!listkey.includes(Apikey)) return res.json(loghandler.invalidKey);
+
+    try {
+        // Fetch the raw JSON data from GitHub
+        const response = await fetch('https://raw.githubusercontent.com/GlobalTechInfo/api/Guru/BOT-JSON/anime-itachi.json');
+        const data = await response.json();
+
+        // If no data is found, return an error
+        if (data.length === 0) {
+            return res.json({ status: false, message: "No items found." });
+        }
+
+        // Select a random item from the array
+        const randomItem = data[Math.floor(Math.random() * data.length)];
+
+        // Return the result with the random item
+        res.json({ result: randomItem });
+
+    } catch (e) {
+        console.error('Error fetching data:', e);
+        res.json(loghandler.error);
+    }
+});
+
+router.get('/anime/random-miku', async (req, res) => {
+    const Apikey = req.query.apikey;
+
+    // Check if API key is provided
+    if (!Apikey) return res.json(loghandler.notparam);
+    if (!listkey.includes(Apikey)) return res.json(loghandler.invalidKey);
+
+    try {
+        // Fetch the raw JSON data from GitHub
+        const response = await fetch('https://raw.githubusercontent.com/GlobalTechInfo/api/Guru/BOT-JSON/anime-miku.json');
+        const data = await response.json();
+
+        // If no data is found, return an error
+        if (data.length === 0) {
+            return res.json({ status: false, message: "No items found." });
+        }
+
+        // Select a random item from the array
+        const randomItem = data[Math.floor(Math.random() * data.length)];
+
+        // Return the result with the random item
+        res.json({ result: randomItem });
+
+    } catch (e) {
+        console.error('Error fetching data:', e);
+        res.json(loghandler.error);
+    }
+});
+
+router.get('/anime/random-nezuko', async (req, res) => {
+    const Apikey = req.query.apikey;
+
+    // Check if API key is provided
+    if (!Apikey) return res.json(loghandler.notparam);
+    if (!listkey.includes(Apikey)) return res.json(loghandler.invalidKey);
+
+    try {
+        // Fetch the raw JSON data from GitHub
+        const response = await fetch('https://raw.githubusercontent.com/GlobalTechInfo/api/Guru/BOT-JSON/anime-nezoku.json');
+        const data = await response.json();
+
+        // If no data is found, return an error
+        if (data.length === 0) {
+            return res.json({ status: false, message: "No items found." });
+        }
+
+        // Select a random item from the array
+        const randomItem = data[Math.floor(Math.random() * data.length)];
+
+        // Return the result with the random item
+        res.json({ result: randomItem });
+
+    } catch (e) {
+        console.error('Error fetching data:', e);
+        res.json(loghandler.error);
+    }
+});
+
+router.get('/anime/hentai', async (req, res) => {
+    const Apikey = req.query.apikey;
+
+    // Check if API key is provided
+    if (!Apikey) return res.json(loghandler.notparam);
+    if (!listkey.includes(Apikey)) return res.json(loghandler.invalidKey);
+
+    try {
+        // Fetch the raw JSON data from GitHub
+        const response = await fetch('https://raw.githubusercontent.com/GlobalTechInfo/api/Guru/BOT-JSON/hentai.json');
+        const data = await response.json();
+
+        // If no data is found, return an error
+        if (data.length === 0) {
+            return res.json({ status: false, message: "No items found." });
+        }
+
+        // Select a random item from the array
+        const randomItem = data[Math.floor(Math.random() * data.length)];
+
+        // Return the result with the random item
+        res.json({ result: randomItem });
+
+    } catch (e) {
+        console.error('Error fetching data:', e);
+        res.json(loghandler.error);
+    }
+});
+
+router.get('/anime/random-sagiri', async (req, res) => {
+    const Apikey = req.query.apikey;
+
+    // Check if API key is provided
+    if (!Apikey) return res.json(loghandler.notparam);
+    if (!listkey.includes(Apikey)) return res.json(loghandler.invalidKey);
+
+    try {
+        // Fetch the raw JSON data from GitHub
+        const response = await fetch('https://raw.githubusercontent.com/GlobalTechInfo/api/Guru/BOT-JSON/anime-sagiri.json');
+        const data = await response.json();
+
+        // If no data is found, return an error
+        if (data.length === 0) {
+            return res.json({ status: false, message: "No items found." });
+        }
+
+        // Select a random item from the array
+        const randomItem = data[Math.floor(Math.random() * data.length)];
+
+        // Return the result with the random item
+        res.json({ result: randomItem });
+
+    } catch (e) {
+        console.error('Error fetching data:', e);
+        res.json(loghandler.error);
+    }
+});
+
+router.get('/anime/random-mikasa', async (req, res) => {
+    const Apikey = req.query.apikey;
+
+    // Check if API key is provided
+    if (!Apikey) return res.json(loghandler.notparam);
+    if (!listkey.includes(Apikey)) return res.json(loghandler.invalidKey);
+
+    try {
+        // Fetch the raw JSON data from GitHub
+        const response = await fetch('https://raw.githubusercontent.com/GlobalTechInfo/api/Guru/BOT-JSON/anime-mikasa.json');
+        const data = await response.json();
+
+        // If no data is found, return an error
+        if (data.length === 0) {
+            return res.json({ status: false, message: "No items found." });
+        }
+
+        // Select a random item from the array
+        const randomItem = data[Math.floor(Math.random() * data.length)];
+
+        // Return the result with the random item
+        res.json({ result: randomItem });
+
+    } catch (e) {
+        console.error('Error fetching data:', e);
+        res.json(loghandler.error);
+    }
+});
+
+router.get('/anime/random-sasuke', async (req, res) => {
+    const Apikey = req.query.apikey;
+
+    // Check if API key is provided
+    if (!Apikey) return res.json(loghandler.notparam);
+    if (!listkey.includes(Apikey)) return res.json(loghandler.invalidKey);
+
+    try {
+        // Fetch the raw JSON data from GitHub
+        const response = await fetch('https://raw.githubusercontent.com/GlobalTechInfo/api/Guru/BOT-JSON/anime-sasuke.json');
+        const data = await response.json();
+
+        // If no data is found, return an error
+        if (data.length === 0) {
+            return res.json({ status: false, message: "No items found." });
+        }
+
+        // Select a random item from the array
+        const randomItem = data[Math.floor(Math.random() * data.length)];
+
+        // Return the result with the random item
+        res.json({ result: randomItem });
+
+    } catch (e) {
+        console.error('Error fetching data:', e);
+        res.json(loghandler.error);
+    }
+});
+
 
 // Route to get Tebak Gambar quiz questions
 router.get('/kuis/tebakGambar', async (req, res) => {
