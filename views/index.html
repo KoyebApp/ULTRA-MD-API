@@ -26,6 +26,7 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
+            flex-direction: column; /* Added to stack items vertically */
         }
 
         .blink {
@@ -159,7 +160,7 @@
             text-decoration: underline;
         }
 
-        /* New Sections for CPU, Battery, and Memory */
+        /* New Sections for Time, Battery, and Memory */
         #system-stats {
             font-size: 24px;
             margin-top: 20px;
@@ -177,7 +178,7 @@
             transition: background-color 0.3s ease;
         }
 
-        #cpu {
+        #time {
             background-color: #e74c3c;
         }
 
@@ -198,6 +199,7 @@
 
 <body oncontextmenu='return false;' onkeydown='return false;' onmousedown='return false;'>
 
+    <!-- APIs FXC7 Title and Documentation Link -->
     <div class="blink">
         <div id="back">
             <font size="20">
@@ -208,16 +210,19 @@
         </div>
     </div>
 
+    <br>
+
+    <!-- Documentation Link -->
+    <a id="one" href="/docs">Documentation</a>
+
     <!-- System Stats Section -->
     <div id="system-stats">
-        <div id="cpu">CPU Usage: Loading...</div>
+        <div id="time">Time: Loading...</div>
         <div id="battery">Battery: Loading...</div>
         <div id="memory">Memory: Loading...</div>
     </div>
 
     <br>
-
-    <a id="one" href="/docs">Documentation</a>
 
     <!-- Footer Section -->
     <footer>
@@ -240,10 +245,25 @@
             document.getElementById('memory').innerText = 'Memory: Not available';
         }
 
-        // CPU Usage (not directly accessible via JS)
-        document.getElementById('cpu').innerText = 'CPU Usage: Information unavailable';
+        // Time
+        function updateTime() {
+            var now = new Date();
+            var hours = now.getHours();
+            var minutes = now.getMinutes();
+            var seconds = now.getSeconds();
 
-        // Time Display Logic
+            // Format time as HH:MM:SS
+            var timeString = hours.toString().padStart(2, '0') + ":" + minutes.toString().padStart(2, '0') + ":" + seconds.toString().padStart(2, '0');
+            document.getElementById('time').innerText = 'Time: ' + timeString;
+        }
+
+        // Update time every second
+        setInterval(updateTime, 1000);
+
+        // Initial time update
+        updateTime();
+
+        // Time Display Logic for Greetings
         var Sayings = "";
         var now = new Date();
         var hours = now.getHours();
@@ -262,15 +282,6 @@
         document.getElementById("sayings").innerHTML = Sayings;
 
         swal('Hello There', 'Welcome to My Rest APIs', 'warning');
-        window.setTimeout("waktu()", 1000);
-
-        function waktu() {
-            var waktu = new Date();
-            setTimeout("waktu()", 1000);
-            document.getElementById("jam").innerHTML = waktu.getHours();
-            document.getElementById("menit").innerHTML = waktu.getMinutes();
-            document.getElementById("detik").innerHTML = waktu.getSeconds();
-        }
     </script>
 
 </body>
