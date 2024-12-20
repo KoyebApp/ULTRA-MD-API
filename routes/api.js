@@ -90,7 +90,7 @@ Akhir Pesan Error
 */
 router.use(favicon(__path + "/views/favicon.ico"));
 
-const listkey = ["qa", "manogay"];
+const listkey = ["qa", "APIKEY"];
 
 router.post("/apikey", async (req, res, next) => {
   const key = req.query.key;
