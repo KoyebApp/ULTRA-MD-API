@@ -144,7 +144,7 @@ router.get('/download/twitter', async (req, res, next) => {
   const url = req.query.url;
 
   // Validate the API key and URL
-  if (!Apikey) return res.json({ status: false, message: "No API key provided" });
+  if (!Apikey) return res.json({ status: false, creator: 'Qasim Ali', message: "No API key provided" });
   if (!listkey.includes(Apikey)) return res.json({ status: false, message: "Invalid API key" });
   if (!url) return res.json({ status: false, message: "Please provide the URL" });
 
@@ -238,7 +238,7 @@ router.get('/image/pinterest', async (req, res) => {
   if (listkey.includes(apikey)) {
     try {
       const images = await pinterest(query);
-      res.json({ status: true, result: images });
+      res.json({ status: true, creator: 'Qasim Ali', result: images });
     } catch (error) {
       console.error('Error fetching Pinterest images:', error);
       res.json(loghandler.error);
@@ -259,7 +259,7 @@ router.get('/download/wallpaper', async (req, res) => {
   if (listkey.includes(apikey)) {
     try {
       const wallpapers = await wallpaper(title);
-      res.json({ status: true, result: wallpapers });
+      res.json({ status: true, creator: 'Qasim Ali', result: wallpapers });
     } catch (error) {
       console.error('Error fetching wallpapers:', error);
       res.json(loghandler.error);
@@ -463,6 +463,7 @@ router.get('/stalk/tiktoks', async (req, res, next) => {
     const user = await fg.ttStalk(username);
     res.json({
       status: true,
+      creator: 'Qasim Ali',
       creator: creator,
       result: {
         name: user.name,
@@ -479,41 +480,6 @@ router.get('/stalk/tiktoks', async (req, res, next) => {
       creator: creator,
       message: "Error, username might be invalid"
     });
-  }
-});
-
-
-// TikTok Stalk Route
-router.get('/stalk/tiktok', async (req, res) => {
-  const Apikey = req.query.apikey;
-  const username = req.query.query;
-
-  // Validate API key and query
-  if (!Apikey) return res.json({ status: false, message: '✳️ Enter the API Key' });
-  if (!listkey.includes(Apikey)) return res.json({ status: false, message: '✳️ Invalid API Key' });
-  if (!username) return res.json({ status: false, message: '✳️ Enter the TikTok username' });
-
-  try {
-    await TikTokStalk(req, res, [username]);
-  } catch (error) {
-    res.json({ status: false, message: error });
-  }
-});
-
-// TikTok2 Dl Route
-router.get('/tiktokdl', async (req, res) => {
-  const Apikey = req.query.apikey;
-  const url = req.query.url;
-
-  // Validate API key and URL
-  if (!Apikey) return res.json({ status: false, message: '✳️ Enter the API Key' });
-  if (!listkey.includes(Apikey)) return res.json({ status: false, message: '✳️ Invalid API Key' });
-  if (!url) return res.json({ status: false, message: '✳️ Enter the YouTube video URL' });
-
-  try {
-    await TikTokDownload(req, res, [url]);
-  } catch (error) {
-    res.json({ status: false, message: error });
   }
 });
 
