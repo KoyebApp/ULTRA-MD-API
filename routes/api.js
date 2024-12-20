@@ -505,6 +505,23 @@ router.get('/youtube/mp3', async (req, res) => {
   }
 });
 
+// YouTube MP3 Route
+router.get('/tiktokdl', async (req, res) => {
+  const Apikey = req.query.apikey;
+  const url = req.query.url;
+
+  // Validate API key and URL
+  if (!Apikey) return res.json({ status: false, message: '✳️ Enter the API Key' });
+  if (!listkey.includes(Apikey)) return res.json({ status: false, message: '✳️ Invalid API Key' });
+  if (!url) return res.json({ status: false, message: '✳️ Enter the YouTube video URL' });
+
+  try {
+    await TikTokDownload(req, res, [url]);
+  } catch (error) {
+    res.json({ status: false, message: error });
+  }
+});
+
 // YouTube MP4 Route
 router.get('/youtube/mp4', async (req, res) => {
   const Apikey = req.query.apikey;
