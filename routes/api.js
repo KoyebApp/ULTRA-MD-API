@@ -521,6 +521,22 @@ router.get('/soundcloud', async (req, res) => {
     res.json({ status: false, message: error });
   }
 });
+// Tiktok download Route
+router.get('/ttdl2', async (req, res) => {
+  const Apikey = req.query.apikey;
+  const url = req.query.url;
+
+  // Validate API key and URL
+  if (!Apikey) return res.json({ status: false, message: '✳️ Enter the API Key' });
+  if (!listkey.includes(Apikey)) return res.json({ status: false, message: '✳️ Invalid API Key' });
+  if (!url) return res.json({ status: false, message: '✳️ Enter the SoundCloud track URL' });
+
+  try {
+    await TikTokDownload(req, res, [url]);
+  } catch (error) {
+    res.json({ status: false, message: error });
+  }
+});
 
 // Pinterest Search Route
 router.get('/pinterest2', async (req, res) => {
