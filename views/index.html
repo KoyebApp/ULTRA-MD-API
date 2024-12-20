@@ -22,6 +22,10 @@
             padding: 0;
             text-align: center;
             overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
         }
 
         .blink {
@@ -163,8 +167,8 @@
         }
 
         #system-stats div {
-            margin: 5px;
-            padding: 15px;
+            margin: 10px;
+            padding: 20px;
             font-size: 18px;
             font-weight: bold;
             color: white;
@@ -203,17 +207,43 @@
             </font>
         </div>
     </div>
-    <br>
 
-    <a id="one" href="/docs">Documentation</a>
-
+    <!-- System Stats Section -->
     <div id="system-stats">
         <div id="cpu">CPU Usage: Loading...</div>
         <div id="battery">Battery: Loading...</div>
         <div id="memory">Memory: Loading...</div>
     </div>
 
+    <br>
+
+    <a id="one" href="/docs">Documentation</a>
+
+    <!-- Footer Section -->
+    <footer>
+        <p>&copy; 2025 GlobalTechInfo | <a href="/terms">Terms of Service</a> | <a href="/privacy">Privacy Policy</a></p>
+    </footer>
+
     <script type="text/javascript">
+        // Battery Status
+        navigator.getBattery().then(function(battery) {
+            var batteryPercentage = Math.round(battery.level * 100) + '%';
+            document.getElementById('battery').innerText = 'Battery: ' + batteryPercentage;
+        }).catch(function(error) {
+            document.getElementById('battery').innerText = 'Battery: Not available';
+        });
+
+        // Memory Usage
+        if (navigator.deviceMemory) {
+            document.getElementById('memory').innerText = 'Memory: ' + navigator.deviceMemory + ' GB';
+        } else {
+            document.getElementById('memory').innerText = 'Memory: Not available';
+        }
+
+        // CPU Usage (not directly accessible via JS)
+        document.getElementById('cpu').innerText = 'CPU Usage: Information unavailable';
+
+        // Time Display Logic
         var Sayings = "";
         var now = new Date();
         var hours = now.getHours();
@@ -241,28 +271,7 @@
             document.getElementById("menit").innerHTML = waktu.getMinutes();
             document.getElementById("detik").innerHTML = waktu.getSeconds();
         }
-
-        // Battery Status
-        navigator.getBattery().then(function(battery) {
-            var batteryPercentage = Math.round(battery.level * 100) + '%';
-            document.getElementById('battery').innerText = 'Battery: ' + batteryPercentage;
-        });
-
-        // Memory Usage
-        if (navigator.deviceMemory) {
-            document.getElementById('memory').innerText = 'Memory: ' + navigator.deviceMemory + ' GB';
-        } else {
-            document.getElementById('memory').innerText = 'Memory: Info not available';
-        }
-
-        // CPU Usage (Simulated as browser cannot fetch actual CPU data directly)
-        document.getElementById('cpu').innerText = 'CPU Usage: Approx. 15%'; // Note: This is just a placeholder, as browsers do not have direct access to CPU usage
     </script>
 
-    <audio autoplay="true" src="https://www.soundjay.com/button/beep-07.wav"></audio>
-
-    <footer>
-        <p>API documentation and usage details can be found <a href="/docs">here</a>.</p>
-    </footer>
 </body>
 </html>
