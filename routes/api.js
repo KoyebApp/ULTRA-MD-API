@@ -439,18 +439,19 @@ router.get('/music/spotify', async (req, res, next) => {
 const {
   TikTokStalk,
   TikTokDownload,
-  TikTokDownload2,
+  MediafireDownload,
   YoutubeMP3,
   YoutubeMP4,
-  SoundCloud,
-  SoundCloud2,
+  SoundCloudDl,
+  SoundCloudDl2,
   PinterestSearch,
   WallpaperSearch,
   StickerSearch,
+  InstaStalk,
   NpmSearch,
   FacebookDownload,
   TwitterDownload,
-  InstagramStory
+  Instagram
 } = require('./../lib/utils/dylux');  // Import all the functions
 
 
@@ -466,6 +467,22 @@ router.get('/tiktokstalk', async (req, res) => {
 
   try {
     await TikTokStalk(req, res, [username]);
+  } catch (error) {
+    res.json({ status: false, message: error });
+  }
+});
+// TikTok Stalk Route
+router.get('/instastalk', async (req, res) => {
+  const Apikey = req.query.apikey;
+  const username = req.query.query;
+
+  // Validate API key and query
+  if (!Apikey) return res.json({ status: false, message: '✳️ Enter the API Key' });
+  if (!listkey.includes(Apikey)) return res.json({ status: false, message: '✳️ Invalid API Key' });
+  if (!username) return res.json({ status: false, message: '✳️ Enter the TikTok username' });
+
+  try {
+    await InstaStalk(req, res, [username]);
   } catch (error) {
     res.json({ status: false, message: error });
   }
@@ -506,6 +523,23 @@ router.get('/youtube/mp4', async (req, res) => {
 });
 
 // SoundCloud Route
+router.get('/soundcloud2', async (req, res) => {
+  const Apikey = req.query.apikey;
+  const url = req.query.url;
+
+  // Validate API key and URL
+  if (!Apikey) return res.json({ status: false, message: '✳️ Enter the API Key' });
+  if (!listkey.includes(Apikey)) return res.json({ status: false, message: '✳️ Invalid API Key' });
+  if (!url) return res.json({ status: false, message: '✳️ Enter the SoundCloud track URL' });
+
+  try {
+    await SoundCloudDl2(req, res, [url]);
+  } catch (error) {
+    res.json({ status: false, message: error });
+  }
+});
+
+// SoundCloud Route
 router.get('/soundcloud', async (req, res) => {
   const Apikey = req.query.apikey;
   const url = req.query.url;
@@ -516,11 +550,12 @@ router.get('/soundcloud', async (req, res) => {
   if (!url) return res.json({ status: false, message: '✳️ Enter the SoundCloud track URL' });
 
   try {
-    await SoundCloud(req, res, [url]);
+    await SoundCloudDl(req, res, [url]);
   } catch (error) {
     res.json({ status: false, message: error });
   }
 });
+
 // Tiktok download Route
 router.get('/ttdl2', async (req, res) => {
   const Apikey = req.query.apikey;
@@ -532,7 +567,7 @@ router.get('/ttdl2', async (req, res) => {
   if (!url) return res.json({ status: false, message: '✳️ Enter the SoundCloud track URL' });
 
   try {
-    await TikTokDownload2(req, res, [url]);
+    await MediafireDownload(req, res, [url]);
   } catch (error) {
     res.json({ status: false, message: error });
   }
@@ -651,7 +686,7 @@ router.get('/instagram/story', async (req, res) => {
   if (!username) return res.json({ status: false, message: '✳️ Enter the Instagram username' });
 
   try {
-    await InstagramStory(req, res, [username]);
+    await Instagram(req, res, [username]);
   } catch (error) {
     res.json({ status: false, message: error });
   }
