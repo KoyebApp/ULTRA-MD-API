@@ -4,6 +4,7 @@ __path = process.cwd();
 const express = require('express');
 const favicon = require('serve-favicon');
 const cors = require('cors');
+const zrapi = require("zrapi");
 const fetch = require('node-fetch');
 const cheerio = require('cheerio');
 const request = require('request');
