@@ -41,7 +41,7 @@
     "ffmpeg": "^0.0.4",
     "@ffmpeg-installer/ffmpeg": "latest",
     "form-data": "^4.0.1",
-    "fs-extra": "latest",
+    "fs": "0.0.1-security",
     "genius-lyrics": "^4.2.7",
     "instatouch": "^2.3.22",
     "lodash": "^4.17.20",
