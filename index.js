@@ -1,3 +1,6 @@
+require('dotenv').config();
+console.log(process.env.YTDL_NO_UPDATE);
+
 __path = process.cwd();
 var favicon = require('serve-favicon');
 var express = require('express'),
