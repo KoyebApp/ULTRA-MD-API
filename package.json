@@ -27,6 +27,7 @@
   "dependencies": {
     "@distube/ytdl-core": "latest",
     "axios": "^1.7.2",
+    "puppeteer": "23.11.1",
     "api-dylux": "^1.8.5",
     "cheerio": "^1.0.0-rc.12",
     "base-64": "^1.0.0",
