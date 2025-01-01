@@ -57,6 +57,7 @@
     "ssl-express-www": "^3.0.7",
     "urlencode": "^2.0.0",
     "zrapi": "0.0.7",
+    "ytdl-core": "latest",
     "yt-search": "^2.11.1"
   },
   "homepage": "https://github.com/Zhirrr/Zhirrr-Api#readme"
