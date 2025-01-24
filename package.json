@@ -28,7 +28,7 @@
     "@distube/ytdl-core": "latest",
     "axios": "^1.7.2",
     "puppeteer": "23.11.1",
-    "api-dylux": "^1.8.5",
+    "api-qasim": "^3.2.5",
     "cheerio": "^1.0.0-rc.12",
     "base-64": "^1.0.0",
     "base32": "0.0.6",
@@ -57,7 +57,6 @@
     "serve-favicon": "^2.5.0",
     "ssl-express-www": "^3.0.7",
     "urlencode": "^2.0.0",
-    "zrapi": "0.0.7",
     "ytdl-core": "latest",
     "yt-search": "^2.11.1"
   },
