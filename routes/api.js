@@ -4,12 +4,11 @@ __path = process.cwd();
 const express = require('express');
 const favicon = require('serve-favicon');
 const cors = require('cors');
-const zrapi = require("zrapi");
 const fetch = require('node-fetch');
 const cheerio = require('cheerio');
 const request = require('request');
 const fs = require('fs');
-const fg = require('api-dylux');
+const Qasim = require('api-qasim');
 const { EmojiAPI } = require('emoji-api');
 const dotenv = require('dotenv').config();
 const { color, bgcolor } = require(__path + '/lib/color.js');
@@ -34,10 +33,7 @@ const {
 var router  = express.Router();
 const emoji = new EmojiAPI();
 
-var { igStalk, igDownload } = require("./../lib/utils/ig");
-var { ytDonlodMp3, ytDonlodMp4, ytPlayMp3, ytPlayMp4, ytSearch } = require("./../lib/utils/yt");
-var { Joox, FB, Tiktok } = require("./../lib/utils/downloader");
-var { Cuaca, Lirik } = require('./../lib/utils/information');
+
 var { Base, WPUser } = require('./../lib/utils/tools');
 var tebakGambar = require('./../lib/utils/tebakGambar');
 
@@ -46,7 +42,7 @@ var cookie = process.env.COOCKIE;
 if (!cookie) {
   console.error('COOKIE environment variable not found.');
 }
-const creator = 'Qasim Ali';
+const creator = 'Qasim Ali 🦋';
 
 const createErrorMessage = (message) => ({
     status: false,
@@ -91,7 +87,7 @@ Akhir Pesan Error
 */
 router.use(favicon(__path + "/views/favicon.ico"));
 
-const listkey = ["qa", "APIKEY"];
+const listkey = ["qasim", "MEGA-AI", "APIKEY"];
 
 router.post("/apikey", async (req, res, next) => {
   const key = req.query.key;
@@ -158,7 +154,7 @@ router.get('/download/twitter', async (req, res, next) => {
       res.json({
         status: true,
         code: 200,
-        creator: 'Qasim Ali',
+        creator: 'Qasim Ali 🦋',
         media: data.media,
         date: data.date,
         likes: data.likes,
@@ -205,7 +201,7 @@ router.get('/download/spotify', async (req, res, next) => {
     if (!data || !data.status || !data.data || data.data.length < 1) {
       return res.json({
         status: false,
-        creator: 'Qasim Ali',
+        creator: 'Qasim Ali 🦋',
         message: 'No results found for the search query',
       });
     }
@@ -214,7 +210,7 @@ router.get('/download/spotify', async (req, res, next) => {
     res.json({
       status: true,
       code: 200,
-      creator: 'Qasim Ali',
+      creator: 'Qasim Ali🦋',
       data: data.data,
     });
 
@@ -541,20 +537,6 @@ router.get('/dream', async (req, res, next) => {
   }
 });
 
-const {
-  TikTokStalk,
-  TikTokDownload,
-  YoutubeMP3,
-  YoutubeMP4,
-  SoundCloudDl,
-  Gdrive,
-  PinterestSearch,
-  WallpaperSearch,
-  StickerSearch,
-  NpmSearch,
-  FacebookDownload,
-  TwitterDownload,
-} = require('./../lib/utils/dylux');  // Import all the functions
 
 // TikTok stalk route
 router.get('/stalk/tiktok', async (req, res, next) => {
@@ -566,7 +548,7 @@ router.get('/stalk/tiktok', async (req, res, next) => {
   if (!username) return res.json(loghandler.notusername);
 
   try {
-    const user = await fg.ttStalk(username);
+    const user = await Qasim.tiktokStalk(username);
     res.json({
       status: true,
       creator: 'Qasim Ali',
@@ -586,23 +568,6 @@ router.get('/stalk/tiktok', async (req, res, next) => {
       creator: creator,
       message: "Error, username might be invalid"
     });
-  }
-});
-
-// SoundCloud Route
-router.get('/soundcloud', async (req, res) => {
-  const Apikey = req.query.apikey;
-  const url = req.query.url;
-
-  // Validate API key and URL
-  if (!Apikey) return res.json({ status: false, message: '✳️ Enter the API Key' });
-  if (!listkey.includes(Apikey)) return res.json({ status: false, message: '✳️ Invalid API Key' });
-  if (!url) return res.json({ status: false, message: '✳️ Enter the SoundCloud track URL' });
-
-  try {
-    await SoundCloudDl(req, res, [url]);
-  } catch (error) {
-    res.json({ status: false, message: error });
   }
 });
 
@@ -675,7 +640,7 @@ router.get('/npm2', async (req, res) => {
 });
 
 // Facebook Download Route
-router.get('/fbvdl', async (req, res) => {
+router.get('/fbdl', async (req, res) => {
   const Apikey = req.query.apikey;
   const url = req.query.url;
 
@@ -685,7 +650,7 @@ router.get('/fbvdl', async (req, res) => {
   if (!url) return res.json({ status: false, message: '✳️ Enter the Facebook video URL' });
 
   try {
-    await FacebookDownload(req, res, [url]);
+    await Qasim.fbdl(req, res, [url]);
   } catch (error) {
     res.json({ status: false, message: error });
   }
@@ -734,7 +699,7 @@ router.get('/download/ytmp3', async (req, res, next) => {
   
   if (listkey.includes(apikey)) {
     try {
-      const result = await ytDonlodMp3(url);
+      const result = await Qasim.ytmp3(url);
       res.json({
         status: true,
         code: 200,
@@ -759,7 +724,7 @@ router.get('/download/ytmp4', async (req, res, next) => {
   
   if (listkey.includes(apikey)) {
     try {
-      const result = await ytDonlodMp4(url);
+      const result = await Qasim.ytmp4(url);
       res.json({
         status: true,
         code: 200,
@@ -821,7 +786,7 @@ router.get('/yt/search', async (req, res, next) => {
 
   if (listkey.includes(apikey)) {
     try {
-      const result = await ytSearch(query);
+      const result = await Qasim.ytsearch(query);
       res.json({
         status: true,
         code: 200,
@@ -846,7 +811,7 @@ router.get('/download/tiktok', async (req, res, next) => {
   if (!url) return res.json(loghandler.noturl);
 
   try {
-    const data = await Tiktok(url);
+    const data = await Qasim.tiktokDl(url);
     res.json(data);
   } catch (err) {
     res.json(loghandler.error);
@@ -868,7 +833,7 @@ router.get('/download/fb', async (req, res, next) => {
 
   try {
     // Fetch data from FB function
-    const data = await FB(url);
+    const data = await Qasim.fbdl(url);
 
     // Ensure that the necessary fields are present
     if (!data || !data.result || !data.result.title || !data.result.hd || !data.result.sd || !data.result.audio) {
@@ -912,7 +877,7 @@ router.get('/stalk/ig', async (req, res, next) => {
   
   if (listkey.includes(apikey)) {
     try {
-      const result = await igStalk(username);
+      const result = await Qasim.igStalk(username);
       res.json({
         status: true,
         code: 200,
@@ -1134,7 +1099,7 @@ router.get('/info/weather', async (req, res, next) => {
 
   if (listkey.includes(apikey)) {
     try {
-      const data = await Cuaca(kota);
+      const data = await Qasim.weather(kota);
       res.json(data);
     } catch (e) {
       console.log('Error:', color(e, 'red'));
@@ -1474,7 +1439,7 @@ router.get('/image/messi', async (req, res) => {
 
     try {
         // Fetch the raw JSON data from GitHub
-        const response = await fetch('https://raw.githubusercontent.com/GlobalTechInfo/api/Guru/BOT-JSON/Messi.json');
+        const response = await fetch('https://raw.githubusercontent.com/GlobalTechInfo/Anime-API/Guru/BOT-JSON/Messi.json');
         const data = await response.json();
 
         // If no data is found, return an error
@@ -1503,7 +1468,7 @@ router.get('/image/cr7', async (req, res) => {
 
     try {
         // Fetch the raw JSON data from GitHub
-        const response = await fetch('https://raw.githubusercontent.com/GlobalTechInfo/api/Guru/BOT-JSON/CristianoRonaldo.json');
+        const response = await fetch('https://raw.githubusercontent.com/GlobalTechInfo/Anime-API/Guru/BOT-JSON/CristianoRonaldo.json');
         const data = await response.json();
 
         // If no data is found, return an error
@@ -2566,247 +2531,6 @@ router.get("/photooxy/butterfly", async (req, res) => {
     res.json(loghandler.error);  // Send a generic error response
   }
 });
-
-
-// Route for Wolf Logo Text Effect
-router.get('/textpro/logo-wolf', async (req, res, next) => {
-  const { apikey, text, text2 } = req.query;
-
-  // Validate input parameters
-  if (!apikey) return res.json(loghandler.notparam);
-  if (!text) return res.json(loghandler.nottext);
-  if (!text2) return res.json(loghandler.nottext2);
-
-  // Check if the API key is valid
-  if (!listkey.includes(apikey)) return res.json(loghandler.invalidKey);
-
-  try {
-    // Generate the Wolf Logo effect using zrapi
-    const data = await zrapi.textpro("https://textpro.me/create-wolf-logo-black-white-937.html", [text, text2]);
-    res.json({
-      status: true,
-      code: 200,
-      creator: `${creator}`,
-      result: data,
-    });
-  } catch (err) {
-    console.error("Error in /textpro/logo-wolf:", err);
-    res.json(loghandler.error);  // Send a generic error response
-  }
-});
-
-// Route for Natural Leaves Text Effect
-router.get('/textpro/natural-leaves', async (req, res, next) => {
-  const { apikey, text } = req.query;
-
-  // Validate input parameters
-  if (!apikey) return res.json(loghandler.notparam);
-  if (!text) return res.json(loghandler.nottext);
-
-  // Check if the API key is valid
-  if (!listkey.includes(apikey)) return res.json(loghandler.invalidKey);
-
-  try {
-    // Generate the Natural Leaves effect using zrapi
-    const data = await zrapi.textpro("https://textpro.me/natural-leaves-text-effect-931.html", [text]);
-    res.json({
-      status: true,
-      code: 200,
-      creator: `${creator}`,
-      result: data,
-    });
-  } catch (err) {
-    console.error("Error in /textpro/natural-leaves:", err);
-    res.json(loghandler.error);  // Send a generic error response
-  }
-});
-
-// Route for Wolf Logo 2 Text Effect
-router.get('/textpro/logo-wolf2', async (req, res, next) => {
-  const { apikey, text, text2 } = req.query;
-
-  // Validate input parameters
-  if (!apikey) return res.json(loghandler.notparam);
-  if (!text) return res.json(loghandler.nottext);
-  if (!text2) return res.json(loghandler.nottext2);
-
-  // Check if the API key is valid
-  if (!listkey.includes(apikey)) return res.json(loghandler.invalidKey);
-
-  try {
-    // Generate the Wolf Logo 2 effect using zrapi
-    const data = await zrapi.textpro("https://textpro.me/create-wolf-logo-galaxy-online-936.html", [text, text2]);
-    res.json({
-      status: true,
-      code: 200,
-      creator: `${creator}`,
-      result: data,
-    });
-  } catch (err) {
-    console.error("Error in /textpro/logo-wolf2:", err);
-    res.json(loghandler.error);  // Send a generic error response
-  }
-});
-
-
-// Route for Thunder Text Effect
-router.get('/textpro/thunder', async (req, res, next) => {
-  const { apikey, text, text2 } = req.query;
-
-  // Validate input parameters
-  if (!apikey) return res.json(loghandler.notparam);
-  if (!text) return res.json(loghandler.nottext);
-  if (!text2) return res.json(loghandler.nottext2);
-
-  // Check if the API key is valid
-  if (!listkey.includes(apikey)) return res.json(loghandler.invalidKey);
-
-  try {
-    // Generate the Thunder Text effect using zrapi
-    const data = await zrapi.textpro("https://textpro.me/thunder-text-effect-online-881.html", [text, text2]);
-    res.json({
-      status: true,
-      code: 200,
-      creator: `${creator}`,
-      result: data,
-    });
-  } catch (err) {
-    console.error("Error in /textpro/thunder:", err);
-    res.json(loghandler.error);  // Send a generic error response
-  }
-});
-
-// Route for Black Pink Logo Text Effect
-router.get('/textpro/black-pink', async (req, res, next) => {
-  const { apikey, text } = req.query;
-
-  // Validate input parameters
-  if (!apikey) return res.json(loghandler.notparam);
-  if (!text) return res.json(loghandler.nottext);
-
-  // Check if the API key is valid
-  if (!listkey.includes(apikey)) return res.json(loghandler.invalidKey);
-
-  try {
-    // Generate the Black Pink Logo effect using zrapi
-    const data = await zrapi.textpro("https://textpro.me/create-blackpink-logo-style-online-1001.html", [text]);
-    res.json({
-      status: true,
-      code: 200,
-      creator: `${creator}`,
-      result: data,
-    });
-  } catch (err) {
-    console.error("Error in /textpro/black-pink:", err);
-    res.json(loghandler.error);  // Send a generic error response
-  }
-});
-
-// Route for Drop Water Text Effect
-router.get('/textpro/drop-water', async (req, res, next) => {
-  const { apikey, text } = req.query;
-
-  // Validate input parameters
-  if (!apikey) return res.json(loghandler.notparam);
-  if (!text) return res.json(loghandler.nottext);
-
-  // Check if the API key is valid
-  if (!listkey.includes(apikey)) return res.json(loghandler.invalidKey);
-
-  try {
-    // Generate the Drop Water text effect using zrapi
-    const data = await zrapi.textpro("https://textpro.me/dropwater-text-effect-872.html", [text]);
-    res.json({
-      status: true,
-      code: 200,
-      creator: `${creator}`,
-      result: data,
-    });
-  } catch (err) {
-    console.error("Error in /textpro/drop-water:", err);
-    res.json(loghandler.error);  // Send a generic error response
-  }
-});
-
-// Route for Christmas Text Effect
-router.get('/textpro/christmas', async (req, res, next) => {
-  const { apikey, text } = req.query;
-
-  // Validate input parameters
-  if (!apikey) return res.json(loghandler.notparam);
-  if (!text) return res.json(loghandler.nottext);
-
-  // Check if the API key is valid
-  if (!listkey.includes(apikey)) return res.json(loghandler.invalidKey);
-
-  try {
-    // Generate the Christmas text effect using zrapi
-    const data = await zrapi.textpro("https://textpro.me/create-a-christmas-holiday-snow-text-effect-1007.html", [text]);
-    res.json({
-      status: true,
-      code: 200,
-      creator: `${creator}`,
-      result: data,
-    });
-  } catch (err) {
-    console.error("Error in /textpro/christmas:", err);
-    res.json(loghandler.error);  // Send a generic error response
-  }
-});
-
-// Route for 3D Gradient Text Effect
-router.get('/textpro/3d-gradient', async (req, res, next) => {
-  const { apikey, text } = req.query;
-
-  // Validate input parameters
-  if (!apikey) return res.json(loghandler.notparam);
-  if (!text) return res.json(loghandler.nottext);
-
-  // Check if the API key is valid
-  if (!listkey.includes(apikey)) return res.json(loghandler.invalidKey);
-
-  try {
-    // Generate the 3D Gradient text effect using zrapi
-    const data = await zrapi.textpro("https://textpro.me/3d-gradient-text-effect-online-free-1002.html", [text]);
-    res.json({
-      status: true,
-      code: 200,
-      creator: `${creator}`,
-      result: data,
-    });
-  } catch (err) {
-    console.error("Error in /textpro/3d-gradient:", err);
-    res.json(loghandler.error);  // Send a generic error response
-  }
-});
-
-// Route for Porn Hub Style Text Effect
-router.get('/textpro/porn-hub', async (req, res, next) => {
-  const { apikey, text1, text2 } = req.query;
-
-  // Validate input parameters
-  if (!apikey) return res.json(loghandler.notparam);
-  if (!text1) return res.json(loghandler.nottext1);
-  if (!text2) return res.json(loghandler.nottext2);
-
-  // Check if the API key is valid
-  if (!listkey.includes(apikey)) return res.json(loghandler.invalidKey);
-
-  try {
-    // Generate the Porn Hub Style text effect using zrapi
-    const data = await zrapi.textpro("https://textpro.me/pornhub-style-logo-online-generator-free-977.html", [text1, text2]);
-    res.json({
-      status: true,
-      code: 200,
-      creator: `${creator}`,
-      result: data,
-    });
-  } catch (err) {
-    console.error("Error in /textpro/porn-hub:", err);
-    res.json(loghandler.error);  // Send a generic error response
-  }
-});
-
 
 /*
 @AKHIR TEXTPRO ME
